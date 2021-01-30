@@ -1,5 +1,6 @@
 package com.meuusado.business;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,8 @@ import org.springframework.stereotype.Component;
 import com.meuusado.dtos.AnuncioDTO;
 import com.meuusado.entities.Anuncio;
 import com.meuusado.repository.AnuncioRepository;
+import com.meuusado.repository.ModeloRepository;
 import com.meuusado.repository.UsuarioRepository;
-import com.meuusado.repository.VeiculoRepository;
 
 @Component
 public class AnuncioBusiness {
@@ -21,7 +22,7 @@ public class AnuncioBusiness {
 	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
-	private VeiculoRepository veiculoRepository;
+	private ModeloRepository modeloRepository;
 	
 	public List<Anuncio> findAll() {
 		return anuncioRepository.findAll();
@@ -45,11 +46,16 @@ public class AnuncioBusiness {
 	public Anuncio dtoToEntity(AnuncioDTO anuncioDto) {
 		Anuncio anuncio = new Anuncio();
 		
+		// Remover
+		anuncioDto.setIdUsuario(4L);
+		anuncioDto.setDataCriacao(new Date());
+		
 		anuncio.setIdAnuncio(anuncioDto.getIdAnuncio());
 		anuncio.setUsuario(usuarioRepository.findById(anuncioDto.getIdUsuario()).orElse(null));
-		anuncio.setVeiculo(veiculoRepository.findById(anuncioDto.getIdVeiculo()).orElse(null));
+		anuncio.setModelo(modeloRepository.findById(anuncioDto.getIdModelo()).orElse(null));
 		anuncio.setTitulo(anuncioDto.getTitulo());
 		anuncio.setDescricao(anuncioDto.getDescricao());
+		anuncio.setValor(anuncioDto.getValor());
 		anuncio.setPathImagem("C://user//bruno//tmp//");
 		anuncio.setDataCriacao(anuncioDto.getDataCriacao());
 		

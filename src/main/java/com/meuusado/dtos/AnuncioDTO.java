@@ -13,11 +13,15 @@ public class AnuncioDTO implements Serializable {
 	
 	private Long idUsuario;
 	
-	private Long idVeiculo;
+	private Long idModelo;
+	
+	private String nomeModelo;
 	
 	private String titulo;
 	
 	private String descricao;
+	
+	private float valor;
 	
 	private Date dataCriacao;
 	
@@ -28,25 +32,29 @@ public class AnuncioDTO implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AnuncioDTO(Long idUsuario, Long idVeiculo, String titulo, String descricao, Date dataCriacao,
+	public AnuncioDTO(Long idUsuario, Long idModelo, String nomeModelo, String titulo, String descricao, float valor, Date dataCriacao,
 			String base64Imagem) {
 		super();
 		this.idUsuario = idUsuario;
-		this.idVeiculo = idVeiculo;
+		this.idModelo = idModelo;
+		this.nomeModelo = nomeModelo;
 		this.titulo = titulo;
 		this.descricao = descricao;
+		this.valor = valor;
 		this.dataCriacao = dataCriacao;
 		this.base64Imagem = base64Imagem;
 	}
 	
-	public AnuncioDTO(Long idAnuncio, Long idUsuario, Long idVeiculo, String titulo, String descricao, Date dataCriacao,
+	public AnuncioDTO(Long idAnuncio, Long idUsuario, Long idModelo, String nomeModelo, String titulo, String descricao, float valor, Date dataCriacao,
 			String base64Imagem) {
 		super();
 		this.idAnuncio = idAnuncio;
 		this.idUsuario = idUsuario;
-		this.idVeiculo = idVeiculo;
+		this.idModelo = idModelo;
+		this.nomeModelo = nomeModelo;
 		this.titulo = titulo;
 		this.descricao = descricao;
+		this.valor = valor;
 		this.dataCriacao = dataCriacao;
 		this.base64Imagem = base64Imagem;
 	}
@@ -55,9 +63,11 @@ public class AnuncioDTO implements Serializable {
 		super();
 		this.setIdAnuncio(anuncio.getIdAnuncio());
 		this.setIdUsuario(anuncio.getUsuario().getIdUsuario());
-		this.setIdVeiculo(anuncio.getVeiculo().getIdVeiculo());
+		this.setIdModelo(anuncio.getModelo().getIdModelo());
+		this.setNomeModelo(anuncio.getModelo().getName());
 		this.setTitulo(anuncio.getTitulo());
 		this.setDescricao(anuncio.getDescricao());
+		this.setValor(anuncio.getValor());
 		this.setDataCriacao(anuncio.getDataCriacao());
 		//this.setImagem
 		
@@ -79,16 +89,24 @@ public class AnuncioDTO implements Serializable {
 		this.idUsuario = idUsuario;
 	}
 
-	public Long getIdVeiculo() {
-		return idVeiculo;
+	public Long getIdModelo() {
+		return idModelo;
 	}
 
-	public void setIdVeiculo(Long idVeiculo) {
-		this.idVeiculo = idVeiculo;
+	public void setIdModelo(Long idModelo) {
+		this.idModelo = idModelo;
 	}
 
 	public String getTitulo() {
 		return titulo;
+	}
+
+	public String getNomeModelo() {
+		return nomeModelo;
+	}
+
+	public void setNomeModelo(String nomeModelo) {
+		this.nomeModelo = nomeModelo;
 	}
 
 	public void setTitulo(String titulo) {
@@ -101,6 +119,14 @@ public class AnuncioDTO implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public float getValor() {
+		return valor;
+	}
+
+	public void setValor(float valor) {
+		this.valor = valor;
 	}
 
 	public Date getDataCriacao() {

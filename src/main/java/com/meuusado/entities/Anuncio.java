@@ -24,14 +24,17 @@ public class Anuncio {
 	private Usuario usuario;
 	
 	@ManyToOne
-	@JoinColumn(name="ID_VEICULO")
-	private Veiculo veiculo;
+	@JoinColumn(name="ID_MODELO")
+	private Modelo modelo;
 	
 	@Column(name="TITULO")
 	private String titulo;
 	
 	@Column(name="DESCRICAO")
 	private String descricao;
+	
+	@Column(name="VALOR")
+	private float valor;
 	
 	@Column(name="DATA_CRIACAO")
 	private Date dataCriacao;
@@ -43,12 +46,12 @@ public class Anuncio {
 		super();
 	}
 
-	public Anuncio(Long idAnuncio, Usuario usuario, Veiculo veiculo, String titulo, String descricao, Date dataCriacao,
+	public Anuncio(Long idAnuncio, Usuario usuario, Modelo modelo, String titulo, String descricao, Date dataCriacao,
 			String pathImagem) {
 		super();
 		this.idAnuncio = idAnuncio;
 		this.usuario = usuario;
-		this.veiculo = veiculo;
+		this.modelo = modelo;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.dataCriacao = dataCriacao;
@@ -71,12 +74,12 @@ public class Anuncio {
 		this.usuario = usuario;
 	}
 
-	public Veiculo getVeiculo() {
-		return veiculo;
+	public Modelo getModelo() {
+		return modelo;
 	}
 
-	public void setVeiculo(Veiculo veiculo) {
-		this.veiculo = veiculo;
+	public void setModelo(Modelo modelo) {
+		this.modelo = modelo;
 	}
 
 	public String getTitulo() {
@@ -89,6 +92,14 @@ public class Anuncio {
 
 	public String getDescricao() {
 		return descricao;
+	}
+
+	public float getValor() {
+		return valor;
+	}
+
+	public void setValor(float valor) {
+		this.valor = valor;
 	}
 
 	public void setDescricao(String descricao) {
