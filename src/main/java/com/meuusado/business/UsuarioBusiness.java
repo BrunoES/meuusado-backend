@@ -37,7 +37,7 @@ public class UsuarioBusiness {
 	public Usuario dtoToEntity(UsuarioDTO usuarioDto) {
 		Usuario usuario = new Usuario();
 		usuario.setIdUsuario(usuarioDto.getIdUsuario());
-		usuario.setName(usuarioDto.getName());
+		usuario.setNome(usuarioDto.getNome());
 		usuario.setEmail(usuarioDto.getEmail());
 		usuario.setPassword(usuarioDto.getPassword());
 		return usuario;

@@ -42,7 +42,8 @@ public class UsuarioController {
 		Usuario usuario = usuarioService.save(usuarioDto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(usuario).toUri();
-		return ResponseEntity.created(uri).build();
+		return ResponseEntity.ok().body(usuario);
+		//return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)

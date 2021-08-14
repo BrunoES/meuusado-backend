@@ -7,8 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "MU_ANUNCIO")
@@ -39,6 +42,11 @@ public class Anuncio {
 	@Column(name="DATA_CRIACAO")
 	private Date dataCriacao;
 	
+	@Lob
+	@Column(name="BASE64_IMG_PRINC_MIN")
+	private String base64ImgPrincMin;
+	
+	@JsonIgnore
 	@Column(name="PATH_IMAGEM")
 	private String pathImagem;
 
@@ -55,6 +63,19 @@ public class Anuncio {
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.dataCriacao = dataCriacao;
+		this.pathImagem = pathImagem;
+	}
+	
+	public Anuncio(Long idAnuncio, Usuario usuario, Modelo modelo, String titulo, String descricao, Date dataCriacao, String base64ImgPrincMin,
+			String pathImagem) {
+		super();
+		this.idAnuncio = idAnuncio;
+		this.usuario = usuario;
+		this.modelo = modelo;
+		this.titulo = titulo;
+		this.descricao = descricao;
+		this.dataCriacao = dataCriacao;
+		this.base64ImgPrincMin = base64ImgPrincMin;
 		this.pathImagem = pathImagem;
 	}
 
@@ -112,6 +133,15 @@ public class Anuncio {
 
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
+	}
+
+	
+	public String getBase64ImgPrincMin() {
+		return base64ImgPrincMin;
+	}
+
+	public void setBase64ImgPrincMin(String base64ImgPrincMin) {
+		this.base64ImgPrincMin = base64ImgPrincMin;
 	}
 
 	public String getPathImagem() {

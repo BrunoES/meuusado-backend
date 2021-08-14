@@ -32,6 +32,18 @@ public class AnuncioDTO implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+	public AnuncioDTO(Long idUsuario, Long idModelo, String titulo, String descricao, float valor, Date dataCriacao,
+			String base64Imagem) {
+		super();
+		this.idUsuario = idUsuario;
+		this.idModelo = idModelo;
+		this.titulo = titulo;
+		this.descricao = descricao;
+		this.valor = valor;
+		this.dataCriacao = dataCriacao;
+		this.base64Imagem = base64Imagem;
+	}
+	
 	public AnuncioDTO(Long idUsuario, Long idModelo, String nomeModelo, String titulo, String descricao, float valor, Date dataCriacao,
 			String base64Imagem) {
 		super();

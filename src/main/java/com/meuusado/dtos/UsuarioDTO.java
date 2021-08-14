@@ -21,18 +21,18 @@ public class UsuarioDTO implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UsuarioDTO(String name, String email, String password) {
+	public UsuarioDTO(String nome, String email, String password) {
 		super();
-		this.name = name;
+		this.name = nome;
 		this.email = email;
 		this.password = password;
 	}
 
 	
-	public UsuarioDTO(Long idUsuario, String name, String email, String password) {
+	public UsuarioDTO(Long idUsuario, String nome, String email, String password) {
 		super();
 		this.idUsuario = idUsuario;
-		this.name = name;
+		this.name = nome;
 		this.email = email;
 		this.password = password;
 	}
@@ -40,7 +40,7 @@ public class UsuarioDTO implements Serializable {
 	public UsuarioDTO(Usuario usuario) {
 		super();
 		this.idUsuario = usuario.getIdUsuario();
-		this.name = usuario.getName();
+		this.name = usuario.getNome();
 		this.email = usuario.getEmail();
 		this.password = usuario.getPassword();
 	}
@@ -53,12 +53,12 @@ public class UsuarioDTO implements Serializable {
 		this.idUsuario = id;
 	}
 
-	public String getName() {
+	public String getNome() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String nome) {
+		this.name = nome;
 	}
 
 	public String getEmail() {

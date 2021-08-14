@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.meuusado.dtos.LoginDTO;
+import com.meuusado.dtos.LoginResponseDTO;
 import com.meuusado.services.LoginService;
 
 @RestController
@@ -19,9 +20,10 @@ public class LoginController {
 	private LoginService LoginService;
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Boolean> save(@RequestBody LoginDTO loginDto) {
+	public ResponseEntity<LoginResponseDTO> save(@RequestBody LoginDTO loginDto) {
 		boolean logado = LoginService.signIn(loginDto);
-		return new ResponseEntity<>(logado, (logado ? HttpStatus.OK : HttpStatus.UNAUTHORIZED));
+		LoginResponseDTO loginResponseDTO = new LoginResponseDTO(logado);
+		return new ResponseEntity<LoginResponseDTO>(loginResponseDTO, (logado ? HttpStatus.OK : HttpStatus.UNAUTHORIZED));
 	}
 	
 }

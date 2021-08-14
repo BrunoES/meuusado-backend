@@ -3,6 +3,7 @@ package com.meuusado.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,12 +12,12 @@ import javax.persistence.Table;
 public class Usuario {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID_USUARIO")
 	private Long idUsuario;
 	
-	@Column(name="NAME")
-	private String name;
+	@Column(name="NOME")
+	private String nome;
 	
 	@Column(name="EMAIL")
 	private String email;
@@ -28,10 +29,10 @@ public class Usuario {
 		super();
 	}
 
-	public Usuario(Long idUsuario, String name, String email, String password) {
+	public Usuario(Long idUsuario, String nome, String email, String password) {
 		super();
 		this.idUsuario = idUsuario;
-		this.name = name;
+		this.nome = nome;
 		this.email = email;
 		this.password = password;
 	}
@@ -45,12 +46,12 @@ public class Usuario {
 		this.idUsuario = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String name) {
+		this.nome = name;
 	}
 
 	public String getEmail() {

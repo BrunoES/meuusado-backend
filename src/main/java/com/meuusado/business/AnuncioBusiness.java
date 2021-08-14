@@ -50,15 +50,25 @@ public class AnuncioBusiness {
 		anuncioDto.setIdUsuario(4L);
 		anuncioDto.setDataCriacao(new Date());
 		
+		String base64ImgPrincMin = compressImage(anuncioDto.getBase64Imagem());
+		
 		anuncio.setIdAnuncio(anuncioDto.getIdAnuncio());
 		anuncio.setUsuario(usuarioRepository.findById(anuncioDto.getIdUsuario()).orElse(null));
 		anuncio.setModelo(modeloRepository.findById(anuncioDto.getIdModelo()).orElse(null));
 		anuncio.setTitulo(anuncioDto.getTitulo());
 		anuncio.setDescricao(anuncioDto.getDescricao());
 		anuncio.setValor(anuncioDto.getValor());
+		anuncio.setBase64ImgPrincMin(base64ImgPrincMin);
 		anuncio.setPathImagem("C://user//bruno//tmp//");
 		anuncio.setDataCriacao(anuncioDto.getDataCriacao());
 		
 		return anuncio;
 	}
+	
+	
+	private String compressImage(String base64Image) {
+		// TO DO
+		return base64Image;
+	}
+	
 }

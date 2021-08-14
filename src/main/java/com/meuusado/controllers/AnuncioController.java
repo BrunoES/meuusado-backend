@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.meuusado.dtos.AnuncioDTO;
+import com.meuusado.dtos.AnuncioResumidoDTO;
 import com.meuusado.entities.Anuncio;
 import com.meuusado.services.AnuncioService;
 
@@ -25,9 +26,9 @@ public class AnuncioController {
 	private AnuncioService anuncioService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<AnuncioDTO>> findAll() {
+	public ResponseEntity<List<AnuncioResumidoDTO>> findAll() {
 		List<Anuncio> list = anuncioService.findAll();
-		List<AnuncioDTO> listDto = list.stream().map(obj -> new AnuncioDTO(obj)).collect(Collectors.toList());
+		List<AnuncioResumidoDTO> listDto = list.stream().map(obj -> new AnuncioResumidoDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 	
