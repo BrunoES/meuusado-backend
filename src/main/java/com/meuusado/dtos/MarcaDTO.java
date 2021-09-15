@@ -10,27 +10,27 @@ public class MarcaDTO implements Serializable {
 
 	private Long idMarca;
 	
-	private String name;
+	private String nome;
 	
 	public MarcaDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public MarcaDTO(String name) {
+	public MarcaDTO(String nome) {
 		super();
-		this.name = name;
+		this.nome = nome;
 	}
 	
-	public MarcaDTO(Long idMarca, String name) {
+	public MarcaDTO(Long idMarca, String nome) {
 		super();
 		this.idMarca = idMarca;
-		this.name = name;
+		this.nome = nome;
 	}
 	
 	public MarcaDTO(Marca marca) {
 		this.idMarca = marca.getIdMarca();
-		this.name = marca.getName();
+		this.nome = marca.getNome();
 	}
 
 	public Long getIdMarca() {
@@ -41,12 +41,12 @@ public class MarcaDTO implements Serializable {
 		this.idMarca = idMarca;
 	}
 
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 }

@@ -75,12 +75,13 @@ public class AnuncioDTO implements Serializable {
 		super();
 		this.setIdAnuncio(anuncio.getIdAnuncio());
 		this.setIdUsuario(anuncio.getUsuario().getIdUsuario());
-		this.setIdModelo(anuncio.getModelo().getIdModelo());
-		this.setNomeModelo(anuncio.getModelo().getName());
+		this.setIdModelo(anuncio.getModelo() != null ? anuncio.getModelo().getIdModelo() : null);
+		this.setNomeModelo(anuncio.getModelo() != null ? anuncio.getModelo().getName() : "");
 		this.setTitulo(anuncio.getTitulo());
 		this.setDescricao(anuncio.getDescricao());
 		this.setValor(anuncio.getValor());
 		this.setDataCriacao(anuncio.getDataCriacao());
+		this.setBase64Imagem(anuncio.getBase64ImgPrincMin());
 		//this.setImagem
 		
 	}

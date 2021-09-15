@@ -16,16 +16,16 @@ public class Marca {
 	private Long idMarca;
 	
 	@Column(name="NAME")
-	private String name;
+	private String nome;
 	
 	public Marca() {
 		super();
 	}
 
-	public Marca(Long idMarca, String name) {
+	public Marca(Long idMarca, String nome) {
 		super();
 		this.idMarca = idMarca;
-		this.name = name;
+		this.nome = nome;
 	}
 	
 	public Long getIdMarca() {
@@ -36,12 +36,12 @@ public class Marca {
 		this.idMarca = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String nome) {
+		this.nome = nome;
 	}
 	
 	

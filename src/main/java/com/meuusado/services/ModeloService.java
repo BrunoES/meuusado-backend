@@ -23,6 +23,10 @@ public class ModeloService {
 		return modeloBusiness.findById(id);
 	}
 	
+	public List<Modelo> findByMarca(Long idMarca) {
+		return modeloBusiness.findByMarca(idMarca);
+	}
+	
 	public Modelo save(ModeloDTO modeloDto) {
 		return modeloBusiness.save(modeloDto);
 	}

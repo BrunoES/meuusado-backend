@@ -47,7 +47,7 @@ public class AnuncioBusiness {
 		Anuncio anuncio = new Anuncio();
 		
 		// Remover
-		anuncioDto.setIdUsuario(4L);
+		anuncioDto.setIdUsuario(1L);
 		anuncioDto.setDataCriacao(new Date());
 		
 		String base64ImgPrincMin = compressImage(anuncioDto.getBase64Imagem());

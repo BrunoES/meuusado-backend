@@ -27,6 +27,10 @@ public class ModeloBusiness {
 		return modeloRepository.findById(id).orElse(null);
 	}
 	
+	public List<Modelo> findByMarca(Long idMarca) {
+		return modeloRepository.findByMarca(marcaRepository.getOne(idMarca));
+	}
+	
 	public Modelo save(ModeloDTO modeloDto) {
 		Modelo modelo = dtoToEntity(modeloDto);
 		return modeloRepository.save(modelo);
@@ -42,7 +46,7 @@ public class ModeloBusiness {
 		Modelo modelo = new Modelo();
 		modelo.setIdModelo(modeloDto.getIdModelo());
 		modelo.setName(modeloDto.getNomeModelo());
-		modelo.setMarca(marcaRepository.findById(modeloDto.getIdModelo()).orElse(null));
+		modelo.setMarca(marcaRepository.findById(modeloDto.getIdMarca()).orElse(null));
 		return modelo;
 	}
 }

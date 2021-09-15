@@ -55,7 +55,7 @@ public class VeiculoDTO implements Serializable {
 		this.idModelo = veiculo.getModelo().getIdModelo();
 		this.nomeModelo = veiculo.getModelo().getName();
 		this.idMarca = veiculo.getModelo().getMarca().getIdMarca();
-		this.nomeMarca = veiculo.getModelo().getMarca().getName();
+		this.nomeMarca = veiculo.getModelo().getMarca().getNome();
 	}
 	
 	public Long getIdVeiculo() {

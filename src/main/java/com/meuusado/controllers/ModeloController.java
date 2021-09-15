@@ -37,6 +37,13 @@ public class ModeloController {
 		return ResponseEntity.ok().body(modeloDto);
 	}
 	
+	@RequestMapping(value="/marca/{idMarca}", method=RequestMethod.GET)
+	public ResponseEntity<List<ModeloDTO>> findByMarca(@PathVariable Long idMarca) {
+		List<Modelo> list = modeloService.findByMarca(idMarca);
+		List<ModeloDTO> listDto = list.stream().map(obj -> new ModeloDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
+	}
+	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Modelo> save(@RequestBody ModeloDTO modeloDto) {
 		Modelo modelo = modeloService.save(modeloDto);

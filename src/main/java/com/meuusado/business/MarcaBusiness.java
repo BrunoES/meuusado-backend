@@ -37,7 +37,7 @@ public class MarcaBusiness {
 	public Marca dtoToEntity(MarcaDTO marcaDto) {
 		Marca marca = new Marca();
 		marca.setIdMarca(marcaDto.getIdMarca());
-		marca.setName(marcaDto.getName());
+		marca.setName(marcaDto.getNome());
 		return marca;
 	}
 }

@@ -21,11 +21,24 @@ public class ModeloDTO implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+	public ModeloDTO(String nomeModelo, Long idMarca) {
+		super();
+		this.nomeModelo = nomeModelo;
+		this.idMarca = idMarca;
+	}
+	
 	public ModeloDTO(Long idUsuario, String nomeModelo, Long idMarca, String nomeMarca) {
 		super();
 		this.nomeModelo = nomeModelo;
 		this.idMarca = idMarca;
 		this.nomeMarca = nomeMarca;
+	}
+	
+	public ModeloDTO(Long idModelo, Long idUsuario, String nomeModelo, Long idMarca) {
+		super();
+		this.idModelo = idModelo;
+		this.nomeModelo = nomeModelo;
+		this.idMarca = idMarca;
 	}
 	
 	public ModeloDTO(Long idModelo, Long idUsuario, String nomeModelo, Long idMarca, String nomeMarca) {
@@ -41,7 +54,7 @@ public class ModeloDTO implements Serializable {
 		this.idModelo = modelo.getIdModelo();
 		this.nomeModelo = modelo.getName();
 		this.idMarca = modelo.getMarca().getIdMarca();
-		this.nomeMarca = modelo.getMarca().getName();
+		this.nomeMarca = modelo.getMarca().getNome();
 	}
 	
 	public Long getIdModelo() {
