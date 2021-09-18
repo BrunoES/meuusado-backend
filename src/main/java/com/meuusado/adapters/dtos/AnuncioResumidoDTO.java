@@ -1,9 +1,9 @@
-package com.meuusado.dtos;
+package com.meuusado.adapters.dtos;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import com.meuusado.entities.Anuncio;
+import com.meuusado.application.domain.Anuncio;
 
 public class AnuncioResumidoDTO implements Serializable {
 

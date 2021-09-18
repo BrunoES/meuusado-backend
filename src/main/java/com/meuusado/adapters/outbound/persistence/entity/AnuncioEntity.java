@@ -1,4 +1,4 @@
-package com.meuusado.entities;
+package com.meuusado.adapters.outbound.persistence.entity;
 
 import java.util.Date;
 
@@ -12,10 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.meuusado.entities.Modelo;
+import com.meuusado.entities.Usuario;
 
 @Entity
 @Table(name = "MU_ANUNCIO")
-public class Anuncio {
+public class AnuncioEntity {
 
 	@Id
 	@GeneratedValue
@@ -50,11 +52,11 @@ public class Anuncio {
 	@Column(name="PATH_IMAGEM")
 	private String pathImagem;
 
-	public Anuncio() {
+	public AnuncioEntity() {
 		super();
 	}
 
-	public Anuncio(Long idAnuncio, Usuario usuario, Modelo modelo, String titulo, String descricao, Date dataCriacao,
+	public AnuncioEntity(Long idAnuncio, Usuario usuario, Modelo modelo, String titulo, String descricao, Date dataCriacao,
 			String pathImagem) {
 		super();
 		this.idAnuncio = idAnuncio;
@@ -66,7 +68,7 @@ public class Anuncio {
 		this.pathImagem = pathImagem;
 	}
 	
-	public Anuncio(Long idAnuncio, Usuario usuario, Modelo modelo, String titulo, String descricao, Date dataCriacao, String base64ImgPrincMin,
+	public AnuncioEntity(Long idAnuncio, Usuario usuario, Modelo modelo, String titulo, String descricao, Date dataCriacao, String base64ImgPrincMin,
 			String pathImagem) {
 		super();
 		this.idAnuncio = idAnuncio;
@@ -135,7 +137,6 @@ public class Anuncio {
 		this.dataCriacao = dataCriacao;
 	}
 
-	
 	public String getBase64ImgPrincMin() {
 		return base64ImgPrincMin;
 	}
