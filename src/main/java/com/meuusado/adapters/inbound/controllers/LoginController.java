@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.meuusado.dtos.LoginDTO;
-import com.meuusado.dtos.LoginResponseDTO;
-import com.meuusado.services.LoginService;
+import com.meuusado.adapters.dtos.LoginDTO;
+import com.meuusado.adapters.dtos.LoginResponseDTO;
+import com.meuusado.application.ports.LoginServicePort;
 
 @RestController
 @RequestMapping(value="/api/v1/login")
 public class LoginController {
 	
 	@Autowired
-	private LoginService LoginService;
+	private LoginServicePort loginServicePort;
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<LoginResponseDTO> save(@RequestBody LoginDTO loginDto) {
-		boolean logado = LoginService.signIn(loginDto);
+		boolean logado = loginServicePort.signIn(loginDto);
 		LoginResponseDTO loginResponseDTO = new LoginResponseDTO(logado);
 		return new ResponseEntity<LoginResponseDTO>(loginResponseDTO, (logado ? HttpStatus.OK : HttpStatus.UNAUTHORIZED));
 	}

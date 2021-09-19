@@ -12,8 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.meuusado.entities.Modelo;
-import com.meuusado.entities.Usuario;
 
 @Entity
 @Table(name = "MU_ANUNCIO")
@@ -26,11 +24,11 @@ public class AnuncioEntity {
 	
 	@ManyToOne
 	@JoinColumn(name="ID_USUARIO")
-	private Usuario usuario;
+	private UsuarioEntity usuarioEntity;
 	
 	@ManyToOne
 	@JoinColumn(name="ID_MODELO")
-	private Modelo modelo;
+	private ModeloEntity modeloEntity;
 	
 	@Column(name="TITULO")
 	private String titulo;
@@ -56,24 +54,24 @@ public class AnuncioEntity {
 		super();
 	}
 
-	public AnuncioEntity(Long idAnuncio, Usuario usuario, Modelo modelo, String titulo, String descricao, Date dataCriacao,
+	public AnuncioEntity(Long idAnuncio, UsuarioEntity usuarioEntity, ModeloEntity modeloEntity, String titulo, String descricao, Date dataCriacao,
 			String pathImagem) {
 		super();
 		this.idAnuncio = idAnuncio;
-		this.usuario = usuario;
-		this.modelo = modelo;
+		this.usuarioEntity = usuarioEntity;
+		this.modeloEntity = modeloEntity;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.dataCriacao = dataCriacao;
 		this.pathImagem = pathImagem;
 	}
 	
-	public AnuncioEntity(Long idAnuncio, Usuario usuario, Modelo modelo, String titulo, String descricao, Date dataCriacao, String base64ImgPrincMin,
+	public AnuncioEntity(Long idAnuncio, UsuarioEntity usuarioEntity, ModeloEntity modeloEntity, String titulo, String descricao, Date dataCriacao, String base64ImgPrincMin,
 			String pathImagem) {
 		super();
 		this.idAnuncio = idAnuncio;
-		this.usuario = usuario;
-		this.modelo = modelo;
+		this.usuarioEntity = usuarioEntity;
+		this.modeloEntity = modeloEntity;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.dataCriacao = dataCriacao;
@@ -89,20 +87,20 @@ public class AnuncioEntity {
 		this.idAnuncio = idAnuncio;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public UsuarioEntity getUsuarioEntity() {
+		return usuarioEntity;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsuarioEntity(UsuarioEntity usuarioEntity) {
+		this.usuarioEntity = usuarioEntity;
 	}
 
-	public Modelo getModelo() {
-		return modelo;
+	public ModeloEntity getModeloEntity() {
+		return modeloEntity;
 	}
 
-	public void setModelo(Modelo modelo) {
-		this.modelo = modelo;
+	public void setModeloEntity(ModeloEntity modeloEntity) {
+		this.modeloEntity = modeloEntity;
 	}
 
 	public String getTitulo() {

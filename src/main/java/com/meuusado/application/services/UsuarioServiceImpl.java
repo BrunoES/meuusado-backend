@@ -8,35 +8,35 @@ import com.meuusado.application.ports.UsuarioServicePort;
 
 public class UsuarioServiceImpl implements UsuarioServicePort {
 
-	private final UsuarioRepositoryPort UsuarioRepository;
+	private final UsuarioRepositoryPort usuarioRepository;
 	
-	public UsuarioServiceImpl(final UsuarioRepositoryPort UsuarioRepository) {
-		this.UsuarioRepository = UsuarioRepository;
+	public UsuarioServiceImpl(final UsuarioRepositoryPort usuarioRepository) {
+		this.usuarioRepository = usuarioRepository;
 	}
 	
 	@Override
 	public List<Usuario> findAll() {
-		return UsuarioRepository.findAll();
+		return usuarioRepository.findAll();
 	}
 
 	@Override
 	public Usuario findById(Long id) {
-		return UsuarioRepository.findById(id);
+		return usuarioRepository.findById(id);
 	}
 
 	@Override
 	public Usuario save(Usuario Usuario) {
-		return UsuarioRepository.save(Usuario);
+		return usuarioRepository.save(Usuario);
 	}
 
 	@Override
 	public Usuario update(Usuario Usuario) {
-		return UsuarioRepository.save(Usuario);
+		return usuarioRepository.save(Usuario);
 	}
 
 	@Override
 	public void delete(Usuario Usuario) {
-		UsuarioRepository.delete(Usuario);
+		usuarioRepository.delete(Usuario);
 	}
 
 	

@@ -8,35 +8,35 @@ import com.meuusado.application.ports.MarcaServicePort;
 
 public class MarcaServiceImpl implements MarcaServicePort {
 
-	private final MarcaRepositoryPort MarcaRepository;
+	private final MarcaRepositoryPort marcaRepository;
 	
-	public MarcaServiceImpl(final MarcaRepositoryPort MarcaRepository) {
-		this.MarcaRepository = MarcaRepository;
+	public MarcaServiceImpl(final MarcaRepositoryPort marcaRepository) {
+		this.marcaRepository = marcaRepository;
 	}
 	
 	@Override
 	public List<Marca> findAll() {
-		return MarcaRepository.findAll();
+		return marcaRepository.findAll();
 	}
 
 	@Override
 	public Marca findById(Long id) {
-		return MarcaRepository.findById(id);
+		return marcaRepository.findById(id);
 	}
 
 	@Override
 	public Marca save(Marca Marca) {
-		return MarcaRepository.save(Marca);
+		return marcaRepository.save(Marca);
 	}
 
 	@Override
 	public Marca update(Marca Marca) {
-		return MarcaRepository.save(Marca);
+		return marcaRepository.save(Marca);
 	}
 
 	@Override
 	public void delete(Marca Marca) {
-		MarcaRepository.delete(Marca);
+		marcaRepository.delete(Marca);
 	}
 
 	

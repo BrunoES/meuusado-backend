@@ -28,6 +28,11 @@ public class PostgresUsuarioRepository implements UsuarioRepositoryPort {
 	}
 
 	@Override
+	public Usuario findByEmail(String email) {
+		return usuarioRepository.findByEmail(email);
+	}
+	
+	@Override
 	public Usuario findById(Long id) {
 		UsuarioEntity UsuarioEntity = usuarioRepository.findById(id).orElse(null);
 		return modelMapper.map(UsuarioEntity, Usuario.class);
