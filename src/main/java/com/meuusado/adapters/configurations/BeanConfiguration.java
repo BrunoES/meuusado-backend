@@ -23,32 +23,32 @@ import com.meuusado.application.services.VeiculoServiceImpl;
 public class BeanConfiguration {
 
     @Bean
-    AnuncioServiceImpl anuncioServiceImpl(PostgresAnuncioRepository repository) {
+    public AnuncioServiceImpl anuncioServiceImpl(PostgresAnuncioRepository repository) {
         return new AnuncioServiceImpl(repository);
     }
     
     @Bean
-    MarcaServiceImpl marcaServiceImpl(PostgresMarcaRepository repository) {
+    public MarcaServiceImpl marcaServiceImpl(PostgresMarcaRepository repository) {
         return new MarcaServiceImpl(repository);
     }
     
     @Bean
-    ModeloServiceImpl modeloServiceImpl(PostgresModeloRepository repository) {
+    public ModeloServiceImpl modeloServiceImpl(PostgresModeloRepository repository) {
         return new ModeloServiceImpl(repository);
     }
     
     @Bean
-    UsuarioServiceImpl usuarioServiceImpl(PostgresUsuarioRepository repository) {
+    public UsuarioServiceImpl usuarioServiceImpl(PostgresUsuarioRepository repository) {
         return new UsuarioServiceImpl(repository);
     }
     
     @Bean
-    VeiculoServiceImpl veiculoServiceImpl(PostgresVeiculoRepository repository) {
+    public VeiculoServiceImpl veiculoServiceImpl(PostgresVeiculoRepository repository) {
         return new VeiculoServiceImpl(repository);
     }
 
     @Bean
-    LoginServiceImpl loginServiceImpl(PostgresUsuarioRepository repository) {
+    public LoginServiceImpl loginServiceImpl(PostgresUsuarioRepository repository) {
         return new LoginServiceImpl(repository);
     }
     
