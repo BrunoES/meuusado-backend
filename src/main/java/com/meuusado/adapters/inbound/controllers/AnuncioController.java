@@ -52,8 +52,8 @@ public class AnuncioController {
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Anuncio> update(@RequestBody AnuncioDTO anuncioDto, @PathVariable Long id) {
 		Anuncio anuncio = new Anuncio(); 
-		BeanUtils.copyProperties(anuncioDto, anuncio);
 		anuncioDto.setIdAnuncio(id);
+		BeanUtils.copyProperties(anuncioDto, anuncio);
 		anuncio = anuncioServicePort.save(anuncio);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(anuncio).toUri();
