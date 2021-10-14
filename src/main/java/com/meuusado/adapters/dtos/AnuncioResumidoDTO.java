@@ -61,12 +61,14 @@ public class AnuncioResumidoDTO implements Serializable {
 	public AnuncioResumidoDTO(Anuncio anuncio) {
 		super();
 		this.idAnuncio = anuncio.getIdAnuncio();
-		this.idUsuario = anuncio.getUsuario().getIdUsuario();
+		if(anuncio.getUsuario() != null)
+			this.idUsuario = anuncio.getUsuario().getIdUsuario();
 		this.titulo = anuncio.getTitulo();
 		this.valor = anuncio.getValor();
 		this.dataCriacao = anuncio.getDataCriacao();
 		this.base64Imagem = anuncio.getPathImagem();
-		this.base64ImgPrincMin = anuncio.getBase64ImgPrincMin();
+		if(anuncio.getBase64ImgPrincMin() != null)
+			this.base64ImgPrincMin = anuncio.getBase64ImgPrincMin();
 	}
 
 	public Long getIdAnuncio() {

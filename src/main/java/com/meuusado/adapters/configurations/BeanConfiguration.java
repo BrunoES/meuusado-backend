@@ -1,12 +1,12 @@
 package com.meuusado.adapters.configurations;
 
+import com.meuusado.application.ports.AnuncioRepositoryPort;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import com.meuusado.MeuusadoApplication;
-import com.meuusado.adapters.outbound.persistence.PostgresAnuncioRepository;
 import com.meuusado.adapters.outbound.persistence.PostgresMarcaRepository;
 import com.meuusado.adapters.outbound.persistence.PostgresModeloRepository;
 import com.meuusado.adapters.outbound.persistence.PostgresUsuarioRepository;
@@ -23,7 +23,7 @@ import com.meuusado.application.services.VeiculoServiceImpl;
 public class BeanConfiguration {
 
     @Bean
-    public AnuncioServiceImpl anuncioServiceImpl(PostgresAnuncioRepository repository) {
+    public AnuncioServiceImpl anuncioServiceImpl(AnuncioRepositoryPort repository) {
         return new AnuncioServiceImpl(repository);
     }
     

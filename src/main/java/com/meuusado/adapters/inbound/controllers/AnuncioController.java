@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +42,7 @@ public class AnuncioController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Anuncio> save(@RequestBody AnuncioDTO anuncioDto) {
+	public ResponseEntity<Anuncio> save(/*@Valid*/ @RequestBody AnuncioDTO anuncioDto) {
 		Anuncio anuncio = new Anuncio(); 
 		BeanUtils.copyProperties(anuncioDto, anuncio);
 		anuncio = anuncioServicePort.save(anuncio);

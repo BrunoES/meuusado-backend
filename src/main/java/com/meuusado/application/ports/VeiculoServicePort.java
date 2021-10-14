@@ -16,4 +16,6 @@ public interface VeiculoServicePort {
 	
 	void delete(Veiculo veiculo);
 	
+	Boolean valida(Veiculo veiculo) throws Exception;
+	
 }

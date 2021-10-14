@@ -29,25 +29,26 @@ public class PostgresUsuarioRepository implements UsuarioRepositoryPort {
 
 	@Override
 	public Usuario findByEmail(String email) {
-		return usuarioRepository.findByEmail(email);
+		UsuarioEntity usuarioEntity = usuarioRepository.findByEmail(email); 
+		return modelMapper.map(usuarioEntity, Usuario.class);
 	}
 	
 	@Override
 	public Usuario findById(Long id) {
-		UsuarioEntity UsuarioEntity = usuarioRepository.findById(id).orElse(null);
-		return modelMapper.map(UsuarioEntity, Usuario.class);
+		UsuarioEntity usuarioEntity = usuarioRepository.findById(id).orElse(null);
+		return modelMapper.map(usuarioEntity, Usuario.class);
 	}
 
 	@Override
 	public Usuario save(Usuario usuario) {
-		UsuarioEntity UsuarioEntity = modelMapper.map(usuario, UsuarioEntity.class);
-		return modelMapper.map(usuarioRepository.save(UsuarioEntity), Usuario.class);
+		UsuarioEntity usuarioEntity = modelMapper.map(usuario, UsuarioEntity.class);
+		return modelMapper.map(usuarioRepository.save(usuarioEntity), Usuario.class);
 	}
 
 	@Override
 	public void delete(Usuario usuario) {
-		UsuarioEntity UsuarioEntity = modelMapper.map(usuario, UsuarioEntity.class);
-		usuarioRepository.delete(UsuarioEntity);
+		UsuarioEntity usuarioEntity = modelMapper.map(usuario, UsuarioEntity.class);
+		usuarioRepository.delete(usuarioEntity);
 	}
 
 }

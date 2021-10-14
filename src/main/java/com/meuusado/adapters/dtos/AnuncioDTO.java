@@ -2,7 +2,9 @@ package com.meuusado.adapters.dtos;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.meuusado.application.domain.Anuncio;
 
 public class AnuncioDTO implements Serializable {
@@ -23,6 +25,8 @@ public class AnuncioDTO implements Serializable {
 	
 	private float valor;
 	
+	//@NotNull
+	//@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataCriacao;
 	
 	private String base64Imagem;
@@ -74,7 +78,7 @@ public class AnuncioDTO implements Serializable {
 	public AnuncioDTO(Anuncio anuncio) {
 		super();
 		this.setIdAnuncio(anuncio.getIdAnuncio());
-		this.setIdUsuario(anuncio.getUsuario().getIdUsuario());
+		this.setIdUsuario(anuncio.getUsuario() != null ? anuncio.getUsuario().getIdUsuario() : null);
 		this.setIdModelo(anuncio.getModelo() != null ? anuncio.getModelo().getIdModelo() : null);
 		this.setNomeModelo(anuncio.getModelo() != null ? anuncio.getModelo().getName() : "");
 		this.setTitulo(anuncio.getTitulo());
@@ -82,7 +86,6 @@ public class AnuncioDTO implements Serializable {
 		this.setValor(anuncio.getValor());
 		this.setDataCriacao(anuncio.getDataCriacao());
 		this.setBase64Imagem(anuncio.getBase64ImgPrincMin());
-		//this.setImagem
 		
 	}
 

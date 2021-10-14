@@ -9,6 +9,6 @@ import com.meuusado.application.domain.Usuario;
 @Repository
 public interface SpringDataPostgresUsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
 
-	Usuario findByEmail(String email);
+	UsuarioEntity findByEmail(String email);
 	
 }
