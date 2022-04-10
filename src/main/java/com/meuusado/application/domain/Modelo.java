@@ -11,7 +11,7 @@ public class Modelo {
 	public Modelo() {
 		super();
 	}
-
+	
 	public Modelo(Long idModelo, String name, Marca marca) {
 		super();
 		this.idModelo = idModelo;

@@ -31,7 +31,7 @@ public class AnuncioController {
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<AnuncioResumidoDTO>> findAll() {
 		List<Anuncio> list = anuncioServicePort.findAll();
-		List<AnuncioResumidoDTO> listDto = list.stream().map(obj -> new AnuncioResumidoDTO(obj)).collect(Collectors.toList());
+		List<AnuncioResumidoDTO> listDto = list.stream().filter(x -> x.getBase64ImgPrincMin() != null).map(obj -> new AnuncioResumidoDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 	

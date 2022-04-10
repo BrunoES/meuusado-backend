@@ -3,11 +3,14 @@ package com.meuusado.adapters.outbound.persistence;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+import com.meuusado.adapters.outbound.persistence.entity.MarcaEntity;
 import com.meuusado.adapters.outbound.persistence.entity.ModeloEntity;
 import com.meuusado.application.domain.Marca;
 import com.meuusado.application.domain.Modelo;
@@ -48,7 +51,25 @@ public class PostgresModeloRepository implements ModeloRepositoryPort {
 
 	@Override
 	public List<Modelo> findByMarca(Marca marca) {
-		return modeloRepository.findByMarca(marca);
+		/*
+		 * Converter<MarcaEntity, Marca> marcaConverter = new Converter<MarcaEntity, Marca>() {
+			  public Marca convert(MappingContext<MarcaEntity, Marca> context) {
+			    return new Marca(context.getSource().getIdMarca(), context.getSource().getNome());
+			  }
+			};
+		*/
+		//modelMapper.addConverter(marcaConverter);
+		
+		/*
+		modelMapper.createTypeMap(MarcaEntity.class, Marca.class).addMappings(mapper -> {
+			mapper.using(marcaConverter);
+		});
+		*/
+		//return modeloRepository.findByMarca(marca).stream().map(x -> new Modelo(x.getIdModelo(), x.getName(), new Marca(x.getMarca().getIdMarca(), x.getMarca().getNome()))).collect(Collectors.toList());
+		
+		MarcaEntity marcaEntity = new MarcaEntity(marca.getIdMarca(), marca.getNome());
+		return modeloRepository.findByMarca(marcaEntity).stream().map(x -> modelMapper.map(x, Modelo.class)).collect(Collectors.toList());
+
 	}
 
 }

@@ -24,7 +24,8 @@ public class PostgresMarcaRepository implements MarcaRepositoryPort {
 	
 	@Override
 	public List<Marca> findAll() {
-		return marcaRepository.findAll().stream().map(x -> modelMapper.map(x, Marca.class)).collect(Collectors.toList());
+		List<MarcaEntity> list = marcaRepository.findAll();
+		return list.stream().map(x -> modelMapper.map(x, Marca.class)).collect(Collectors.toList());
 	}
 
 	@Override
