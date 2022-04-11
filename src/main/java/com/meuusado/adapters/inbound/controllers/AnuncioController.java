@@ -45,6 +45,7 @@ public class AnuncioController {
 	public ResponseEntity<Anuncio> save(/*@Valid*/ @RequestBody AnuncioDTO anuncioDto) {
 		Anuncio anuncio = new Anuncio(); 
 		BeanUtils.copyProperties(anuncioDto, anuncio);
+		anuncio.setBase64ImgPrincMin(anuncioDto.getBase64Imagem());
 		anuncio = anuncioServicePort.save(anuncio);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(anuncio).toUri();
