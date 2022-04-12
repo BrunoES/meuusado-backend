@@ -17,6 +17,8 @@ public class AnuncioResumidoDTO implements Serializable {
 	
 	private float valor;
 	
+	private int ano;
+	
 	private Date dataCriacao;
 	
 	private String base64Imagem;
@@ -28,30 +30,33 @@ public class AnuncioResumidoDTO implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AnuncioResumidoDTO(Long idUsuario,  String titulo, float valor, Date dataCriacao, String base64Imagem) {
+	public AnuncioResumidoDTO(Long idUsuario,  String titulo, int ano, float valor, Date dataCriacao, String base64Imagem) {
 		super();
 		this.idUsuario = idUsuario;
 		this.titulo = titulo;
+		this.ano = ano;
 		this.valor = valor;
 		this.dataCriacao = dataCriacao;
 		this.base64Imagem = base64Imagem;
 	}
 	
-	public AnuncioResumidoDTO(Long idAnuncio, Long idUsuario, String titulo, float valor, Date dataCriacao, String base64Imagem) {
+	public AnuncioResumidoDTO(Long idAnuncio, Long idUsuario, String titulo, int ano, float valor, Date dataCriacao, String base64Imagem) {
 		super();
 		this.idAnuncio = idAnuncio;
 		this.idUsuario = idUsuario;
 		this.titulo = titulo;
+		this.ano = ano;
 		this.valor = valor;
 		this.dataCriacao = dataCriacao;
 		this.base64Imagem = base64Imagem;
 	}
 	
-	public AnuncioResumidoDTO(Long idAnuncio, Long idUsuario, String titulo, float valor, Date dataCriacao, String base64ImgPrincMin, String base64Imagem) {
+	public AnuncioResumidoDTO(Long idAnuncio, Long idUsuario, String titulo, int ano, float valor, Date dataCriacao, String base64ImgPrincMin, String base64Imagem) {
 		super();
 		this.idAnuncio = idAnuncio;
 		this.idUsuario = idUsuario;
 		this.titulo = titulo;
+		this.ano = ano;
 		this.valor = valor;
 		this.dataCriacao = dataCriacao;
 		this.base64ImgPrincMin = base64ImgPrincMin;
@@ -64,6 +69,7 @@ public class AnuncioResumidoDTO implements Serializable {
 		if(anuncio.getUsuario() != null)
 			this.idUsuario = anuncio.getUsuario().getIdUsuario();
 		this.titulo = anuncio.getTitulo();
+		this.ano = anuncio.getAno();
 		this.valor = anuncio.getValor();
 		this.dataCriacao = anuncio.getDataCriacao();
 		this.base64Imagem = anuncio.getPathImagem();
@@ -125,6 +131,14 @@ public class AnuncioResumidoDTO implements Serializable {
 
 	public void setBase64ImgPrincMin(String base64ImgPrincMin) {
 		this.base64ImgPrincMin = base64ImgPrincMin;
+	}
+
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
 	}
 	
 }

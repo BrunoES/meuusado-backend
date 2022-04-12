@@ -14,6 +14,8 @@ public class Anuncio {
 	
 	private String descricao;
 	
+	private int ano;
+	
 	private float valor;
 	
 	private Date dataCriacao;
@@ -121,6 +123,14 @@ public class Anuncio {
 
 	public void setPathImagem(String pathImagem) {
 		this.pathImagem = pathImagem;
+	}
+
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
 	}
 	
 }

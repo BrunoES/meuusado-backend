@@ -36,6 +36,9 @@ public class AnuncioEntity {
 	@Column(name="DESCRICAO")
 	private String descricao;
 	
+	@Column(name="ANO")
+	private int ano;
+	
 	@Column(name="VALOR")
 	private float valor;
 	
@@ -149,6 +152,14 @@ public class AnuncioEntity {
 
 	public void setPathImagem(String pathImagem) {
 		this.pathImagem = pathImagem;
+	}
+
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
 	}
 	
 }
