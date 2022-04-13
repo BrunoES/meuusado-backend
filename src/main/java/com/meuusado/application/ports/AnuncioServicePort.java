@@ -10,6 +10,8 @@ public interface AnuncioServicePort {
 	
 	Anuncio findById(Long id);
 	
+	List<Anuncio> findByQuery(String query);
+	
 	Anuncio save(Anuncio anuncio);
 	
 	Anuncio update(Anuncio anuncio);

@@ -1,5 +1,6 @@
 package com.meuusado.application.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.meuusado.application.domain.Anuncio;
@@ -37,6 +38,25 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 	@Override
 	public void delete(Anuncio anuncio) {
 		anuncioRepository.delete(anuncio);
+	}
+
+	@Override
+	public List<Anuncio> findByQuery(String query) {
+		List<Anuncio> list = anuncioRepository.findAll();
+		List<Anuncio> resultList = new ArrayList<Anuncio>();
+		String[] queries = query.split("");
+		
+		list.forEach(anuncio -> {
+			String objectIdentity = String.valueOf(anuncio.getAno()).concat(anuncio.getDescricao()).concat(anuncio.getTitulo()).concat(anuncio.getModelo().getName()).concat(anuncio.getModelo().getMarca().getNome());
+			for(int i = 0; i < queries.length; i ++) {
+				if(objectIdentity.contains(queries[i])) {
+					resultList.add(anuncio);
+					break;
+				}
+			}
+		});
+		
+		return resultList;
 	}
 
 	
