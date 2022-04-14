@@ -44,10 +44,24 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 	public List<Anuncio> findByQuery(String query) {
 		List<Anuncio> list = anuncioRepository.findAll();
 		List<Anuncio> resultList = new ArrayList<Anuncio>();
-		String[] queries = query.split("");
+		String[] queries = query.split(" ");
 		
 		list.forEach(anuncio -> {
-			String objectIdentity = String.valueOf(anuncio.getAno()).concat(anuncio.getDescricao()).concat(anuncio.getTitulo()).concat(anuncio.getModelo().getName()).concat(anuncio.getModelo().getMarca().getNome());
+			String modelo = "";
+			String marca = "";
+			
+			if(anuncio.getModelo() != null) {
+				modelo = anuncio.getModelo().getName();
+				marca = anuncio.getModelo().getMarca().getNome();	
+			}
+			
+			String objectIdentity = String.valueOf(anuncio.getAno()).concat(" ")
+					.concat(anuncio.getDescricao()).concat(" ")
+						.concat(anuncio.getTitulo()).concat(" ")
+							.concat(modelo).concat(" ")
+								.concat(marca);
+			objectIdentity = objectIdentity.toLowerCase();
+			
 			for(int i = 0; i < queries.length; i ++) {
 				if(objectIdentity.contains(queries[i])) {
 					resultList.add(anuncio);
