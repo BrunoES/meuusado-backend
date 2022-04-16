@@ -1,6 +1,7 @@
 package com.meuusado.application.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class Anuncio {
 
@@ -23,6 +24,8 @@ public class Anuncio {
 	private String base64ImgPrincMin;
 	
 	private String pathImagem;
+	
+	private List<AnuncioFotos> listAnuncioFotos;
 
 	public Anuncio() {
 		super();
@@ -131,6 +134,14 @@ public class Anuncio {
 
 	public void setAno(int ano) {
 		this.ano = ano;
+	}
+
+	public List<AnuncioFotos> getListAnuncioFotos() {
+		return listAnuncioFotos;
+	}
+
+	public void setListAnuncioFotos(List<AnuncioFotos> listAnuncioFotos) {
+		this.listAnuncioFotos = listAnuncioFotos;
 	}
 	
 }

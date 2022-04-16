@@ -2,10 +2,13 @@ package com.meuusado.adapters.dtos;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.meuusado.application.domain.Anuncio;
+import com.meuusado.application.domain.AnuncioFotos;
 
 public class AnuncioDTO implements Serializable {
 
@@ -32,6 +35,8 @@ public class AnuncioDTO implements Serializable {
 	private Date dataCriacao;
 	
 	private String base64Imagem;
+	
+	private List<AnuncioFotos> listAnuncioFotos;
 	
 	public AnuncioDTO() {
 		super();
@@ -92,7 +97,7 @@ public class AnuncioDTO implements Serializable {
 		this.setValor(anuncio.getValor());
 		this.setDataCriacao(anuncio.getDataCriacao());
 		this.setBase64Imagem(anuncio.getBase64ImgPrincMin());
-		
+		this.setListAnuncioFotos(anuncio.getListAnuncioFotos());
 	}
 
 	public Long getIdAnuncio() {
@@ -165,6 +170,14 @@ public class AnuncioDTO implements Serializable {
 
 	public void setBase64Imagem(String base64Imagem) {
 		this.base64Imagem = base64Imagem;
+	}
+
+	public List<AnuncioFotos> getListAnuncioFotos() {
+		return listAnuncioFotos;
+	}
+
+	public void setListAnuncioFotos(List<AnuncioFotos> listAnuncioFotos) {
+		this.listAnuncioFotos = listAnuncioFotos;
 	}
 
 	public int getAno() {

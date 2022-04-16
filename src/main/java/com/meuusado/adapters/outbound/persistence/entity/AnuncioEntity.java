@@ -1,14 +1,17 @@
 package com.meuusado.adapters.outbound.persistence.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -53,6 +56,9 @@ public class AnuncioEntity {
 	@Column(name="PATH_IMAGEM")
 	private String pathImagem;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "anuncio")
+	private List<AnuncioFotosEntity> listAnuncioFotos;
+	
 	public AnuncioEntity() {
 		super();
 	}
@@ -160,6 +166,14 @@ public class AnuncioEntity {
 
 	public void setAno(int ano) {
 		this.ano = ano;
+	}
+
+	public List<AnuncioFotosEntity> getListAnuncioFotos() {
+		return listAnuncioFotos;
+	}
+
+	public void setListAnuncioFotos(List<AnuncioFotosEntity> listAnuncioFotos) {
+		this.listAnuncioFotos = listAnuncioFotos;
 	}
 	
 }

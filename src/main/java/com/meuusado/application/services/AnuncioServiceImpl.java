@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.meuusado.application.domain.Anuncio;
+import com.meuusado.application.domain.AnuncioFotos;
+import com.meuusado.application.ports.AnuncioFotosRepositoryPort;
 import com.meuusado.application.ports.AnuncioRepositoryPort;
 import com.meuusado.application.ports.AnuncioServicePort;
 
@@ -11,8 +13,11 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 
 	private final AnuncioRepositoryPort anuncioRepository;
 	
-	public AnuncioServiceImpl(final AnuncioRepositoryPort anuncioRepository) {
+	private final AnuncioFotosRepositoryPort anuncioFotosRepositoryPort;
+	
+	public AnuncioServiceImpl(final AnuncioRepositoryPort anuncioRepository, AnuncioFotosRepositoryPort anuncioFotosRepositoryPort) {
 		this.anuncioRepository = anuncioRepository;
+		this.anuncioFotosRepositoryPort = anuncioFotosRepositoryPort;
 	}
 	
 	@Override
@@ -22,7 +27,10 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 
 	@Override
 	public Anuncio findById(Long id) {
-		return anuncioRepository.findById(id);
+		Anuncio anuncio = anuncioRepository.findById(id);
+		List<AnuncioFotos> listAnuncioFotos = anuncioFotosRepositoryPort.findByAnuncio(anuncio);
+		anuncio.setListAnuncioFotos(listAnuncioFotos);
+		return anuncio;
 	}
 
 	@Override
