@@ -35,7 +35,16 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 
 	@Override
 	public Anuncio save(Anuncio anuncio) {
-		return anuncioRepository.save(anuncio);
+		Anuncio anuncioReturn = anuncioRepository.save(anuncio);
+		List<AnuncioFotos> listAnuncioFotos = new ArrayList<AnuncioFotos>();
+		
+		anuncio.getListAnuncioFotos().forEach(x -> {
+			AnuncioFotos anuncioFotos = new AnuncioFotos(anuncioReturn, x.getBase64Img());
+			listAnuncioFotos.add(anuncioFotosRepositoryPort.save(anuncioFotos));
+		});
+		
+		anuncioReturn.setListAnuncioFotos(listAnuncioFotos);
+		return anuncioReturn;
 	}
 
 	@Override

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.meuusado.adapters.dtos.AnuncioDTO;
 import com.meuusado.adapters.dtos.AnuncioResumidoDTO;
 import com.meuusado.application.domain.Anuncio;
+import com.meuusado.application.ports.AnuncioFotosServicePort;
 import com.meuusado.application.ports.AnuncioServicePort;
 
 @RestController

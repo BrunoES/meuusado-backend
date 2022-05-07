@@ -11,7 +11,13 @@ public class AnuncioFotos {
 	public AnuncioFotos() {
 		super();
 	}
-
+	
+	public AnuncioFotos (Anuncio anuncio, String base64Img) {
+		super();
+		this.anuncio = anuncio;
+		this.base64Img = base64Img;
+	}
+	
 	public AnuncioFotos(Long idFoto, Anuncio anuncio, String base64Img) {
 		super();
 		this.idFoto = idFoto;

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.meuusado.application.domain.Anuncio;
 import com.meuusado.application.domain.AnuncioFotos;
 
@@ -36,6 +37,9 @@ public class AnuncioDTO implements Serializable {
 	
 	private String base64Imagem;
 	
+	private List<String> listAnuncioFotosBase64;
+	
+	@JsonIgnore
 	private List<AnuncioFotos> listAnuncioFotos;
 	
 	public AnuncioDTO() {
@@ -178,6 +182,14 @@ public class AnuncioDTO implements Serializable {
 
 	public void setListAnuncioFotos(List<AnuncioFotos> listAnuncioFotos) {
 		this.listAnuncioFotos = listAnuncioFotos;
+	}
+	
+	public List<String> getListAnuncioFotosBase64() {
+		return listAnuncioFotosBase64;
+	}
+
+	public void setListAnuncioFotosBase64(List<String> listAnuncioFotosBase64) {
+		this.listAnuncioFotosBase64 = listAnuncioFotosBase64;
 	}
 
 	public int getAno() {
