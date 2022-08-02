@@ -15,7 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.meuusado.adapters.dtos.VeiculoDTO;
+import com.meuusado.application.domain.Cor;
+import com.meuusado.application.domain.Modelo;
+import com.meuusado.application.domain.Placa;
+import com.meuusado.application.domain.Usuario;
 import com.meuusado.application.domain.Veiculo;
+import com.meuusado.application.ports.ModeloServicePort;
+import com.meuusado.application.ports.UsuarioServicePort;
 import com.meuusado.application.ports.VeiculoServicePort;
 
 @RestController
@@ -24,6 +30,12 @@ public class VeiculoController {
 	
 	@Autowired
 	private VeiculoServicePort veiculoServicePort;
+	
+	@Autowired
+	private ModeloServicePort modeloServicePort;
+	
+	@Autowired
+	private UsuarioServicePort usuarioServicePort;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<VeiculoDTO>> findAll() {
@@ -40,8 +52,9 @@ public class VeiculoController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Veiculo> save(@RequestBody VeiculoDTO veiculoDto) {
-		Veiculo veiculo = new Veiculo();
-		BeanUtils.copyProperties(veiculoDto, veiculo);
+		Modelo modelo = modeloServicePort.findById(veiculoDto.getIdModelo());
+		Usuario usuario = usuarioServicePort.findById(veiculoDto.getIdUsuario());
+		Veiculo veiculo = new Veiculo(veiculoDto.getIdVeiculo(), usuario, modelo, new Placa(veiculoDto.getPlaca(), new Cor("Azul")));
 		veiculo = veiculoServicePort.save(veiculo);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(veiculo).toUri();
@@ -49,10 +62,10 @@ public class VeiculoController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Veiculo> update(@RequestBody VeiculoDTO veiculoDto, @PathVariable Long id) {	
-		Veiculo veiculo = new Veiculo();
-		veiculoDto.setIdVeiculo(id);
-		BeanUtils.copyProperties(veiculoDto, veiculo);
+	public ResponseEntity<Veiculo> update(@RequestBody VeiculoDTO veiculoDto, @PathVariable Long id) {
+		Modelo modelo = modeloServicePort.findById(veiculoDto.getIdModelo());
+		Usuario usuario = usuarioServicePort.findById(veiculoDto.getIdUsuario());
+		Veiculo veiculo = new Veiculo(id, usuario, modelo, new Placa(veiculoDto.getPlaca(), new Cor("Azul")));
 		veiculo = veiculoServicePort.update(veiculo);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(veiculo).toUri();

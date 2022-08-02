@@ -56,7 +56,7 @@ public class AnuncioEntity {
 	@Column(name="PATH_IMAGEM")
 	private String pathImagem;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "anuncio")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "anuncio")
 	private List<AnuncioFotosEntity> listAnuncioFotos;
 	
 	public AnuncioEntity() {

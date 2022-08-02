@@ -1,5 +1,6 @@
 package com.meuusado.application.services;
 
+import com.meuusado.application.domain.Cor;
 import com.meuusado.application.domain.Placa;
 import com.meuusado.application.domain.validation.ValidacaoPlaca;
 import com.meuusado.application.domain.validation.impl.ValidacaoFormatoPlacaImpl;
@@ -24,7 +25,7 @@ public class PlacaServiceImpl {
 	}
 
 	public static void main(String[] args) throws Exception {
-		Placa placa = new Placa("ADC1234");
+		Placa placa = new Placa("ADC1234", new Cor("Azul"));
 
 		List<ValidacaoPlaca> validacoesPlaca = new ArrayList<>();
 		validacoesPlaca.add(new ValidacaoTamanhoPlacaImpl());

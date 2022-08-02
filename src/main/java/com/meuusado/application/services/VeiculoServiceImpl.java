@@ -59,7 +59,7 @@ public class VeiculoServiceImpl implements VeiculoServicePort {
 
 	@Override
 	public Boolean valida(Veiculo veiculo) throws Exception {
-		placaServiceImpl.valida(veiculo.getPlaca());
+		placaServiceImpl.valida(veiculo.placa());
 		return true;
 	}
 

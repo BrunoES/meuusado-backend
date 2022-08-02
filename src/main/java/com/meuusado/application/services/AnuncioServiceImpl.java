@@ -29,7 +29,7 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 	public Anuncio findById(Long id) {
 		Anuncio anuncio = anuncioRepository.findById(id);
 		List<AnuncioFotos> listAnuncioFotos = anuncioFotosRepositoryPort.findByAnuncio(anuncio);
-		anuncio.setListAnuncioFotos(listAnuncioFotos);
+		//anuncio.setListAnuncioFotos(listAnuncioFotos);
 		return anuncio;
 	}
 
@@ -38,12 +38,12 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 		Anuncio anuncioReturn = anuncioRepository.save(anuncio);
 		List<AnuncioFotos> listAnuncioFotos = new ArrayList<AnuncioFotos>();
 		
-		anuncio.getListAnuncioFotos().forEach(x -> {
-			AnuncioFotos anuncioFotos = new AnuncioFotos(anuncioReturn, x.getBase64Img());
+		anuncio.listAnuncioFotos().forEach(x -> {
+			AnuncioFotos anuncioFotos = new AnuncioFotos(x.idFoto(), anuncioReturn, x.base64Img());
 			listAnuncioFotos.add(anuncioFotosRepositoryPort.save(anuncioFotos));
 		});
 		
-		anuncioReturn.setListAnuncioFotos(listAnuncioFotos);
+		//anuncioReturn.setListAnuncioFotos(listAnuncioFotos);
 		return anuncioReturn;
 	}
 
@@ -67,14 +67,14 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 			String modelo = "";
 			String marca = "";
 			
-			if(anuncio.getModelo() != null) {
-				modelo = anuncio.getModelo().getName();
-				marca = anuncio.getModelo().getMarca().getNome();	
+			if(anuncio.modelo() != null) {
+				modelo = anuncio.modelo().nome();
+				marca = anuncio.modelo().marca().nome();	
 			}
 			
-			String objectIdentity = String.valueOf(anuncio.getAno()).concat(" ")
-					.concat(anuncio.getDescricao()).concat(" ")
-						.concat(anuncio.getTitulo()).concat(" ")
+			String objectIdentity = String.valueOf(anuncio.ano()).concat(" ")
+					.concat(anuncio.descricao()).concat(" ")
+						.concat(anuncio.titulo()).concat(" ")
 							.concat(modelo).concat(" ")
 								.concat(marca);
 			objectIdentity = objectIdentity.toLowerCase();

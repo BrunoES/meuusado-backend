@@ -91,17 +91,17 @@ public class AnuncioDTO implements Serializable {
 	
 	public AnuncioDTO(Anuncio anuncio) {
 		super();
-		this.setIdAnuncio(anuncio.getIdAnuncio());
-		this.setIdUsuario(anuncio.getUsuario() != null ? anuncio.getUsuario().getIdUsuario() : null);
-		this.setIdModelo(anuncio.getModelo() != null ? anuncio.getModelo().getIdModelo() : null);
-		this.setNomeModelo(anuncio.getModelo() != null ? anuncio.getModelo().getName() : "");
-		this.setTitulo(anuncio.getTitulo());
-		this.setDescricao(anuncio.getDescricao());
-		this.setAno(anuncio.getAno());
-		this.setValor(anuncio.getValor());
-		this.setDataCriacao(anuncio.getDataCriacao());
-		this.setBase64Imagem(anuncio.getBase64ImgPrincMin());
-		this.setListAnuncioFotos(anuncio.getListAnuncioFotos());
+		this.setIdAnuncio(anuncio.idAnuncio());
+		this.setIdUsuario(anuncio.usuario() != null ? anuncio.usuario().idUsuario() : null);
+		this.setIdModelo(anuncio.modelo() != null ? anuncio.modelo().idModelo() : null);
+		this.setNomeModelo(anuncio.modelo() != null ? anuncio.modelo().nome() : "");
+		this.setTitulo(anuncio.titulo());
+		this.setDescricao(anuncio.descricao());
+		this.setAno(anuncio.ano());
+		this.setValor(anuncio.valor());
+		this.setDataCriacao(anuncio.dataCriacao());
+		this.setBase64Imagem(anuncio.base64ImgPrincMin());
+		this.setListAnuncioFotos(anuncio.listAnuncioFotos());
 	}
 
 	public Long getIdAnuncio() {

@@ -17,7 +17,7 @@ public class LoginServiceImpl implements LoginServicePort {
 	public boolean signIn(LoginDTO loginDto) {
 		Usuario usuario = usuarioRepositoryPort.findByEmail(loginDto.getEmail());
 		if(usuario != null) {
-			if(loginDto.getPassword().equals(usuario.getPassword())) {
+			if(loginDto.getPassword().equals(usuario.password())) {
 				return true;
 			}
 		}

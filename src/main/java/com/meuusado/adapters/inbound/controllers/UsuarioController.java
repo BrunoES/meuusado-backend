@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,8 +39,7 @@ public class UsuarioController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Usuario> save(@RequestBody UsuarioDTO usuarioDto) {
-		Usuario usuario = new Usuario();
-		BeanUtils.copyProperties(usuarioDto, usuario);
+		Usuario usuario = new Usuario(usuarioDto.getIdUsuario(), usuarioDto.getNome(), usuarioDto.getEmail(), usuarioDto.getPassword());
 		usuario = usuarioServicePort.save(usuario);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(usuario).toUri();
@@ -51,9 +49,7 @@ public class UsuarioController {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Usuario> update(@RequestBody UsuarioDTO usuarioDto, @PathVariable Long id) {
-		Usuario usuario = new Usuario();
-		usuarioDto.setIdUsuario(id);
-		BeanUtils.copyProperties(usuarioDto, usuario);
+		Usuario usuario = new Usuario(id, usuarioDto.getNome(), usuarioDto.getEmail(), usuarioDto.getPassword());
 		usuario = usuarioServicePort.update(usuario);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(usuario).toUri();

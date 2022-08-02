@@ -3,9 +3,7 @@ package com.meuusado.adapters.outbound.persistence;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
@@ -67,7 +65,7 @@ public class PostgresModeloRepository implements ModeloRepositoryPort {
 		*/
 		//return modeloRepository.findByMarca(marca).stream().map(x -> new Modelo(x.getIdModelo(), x.getName(), new Marca(x.getMarca().getIdMarca(), x.getMarca().getNome()))).collect(Collectors.toList());
 		
-		MarcaEntity marcaEntity = new MarcaEntity(marca.getIdMarca(), marca.getNome());
+		MarcaEntity marcaEntity = new MarcaEntity(marca.idMarca(), marca.nome());
 		return modeloRepository.findByMarca(marcaEntity).stream().map(x -> modelMapper.map(x, Modelo.class)).collect(Collectors.toList());
 
 	}

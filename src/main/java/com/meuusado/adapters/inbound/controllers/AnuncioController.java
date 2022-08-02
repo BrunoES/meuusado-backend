@@ -17,7 +17,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.meuusado.adapters.dtos.AnuncioDTO;
 import com.meuusado.adapters.dtos.AnuncioResumidoDTO;
 import com.meuusado.application.domain.Anuncio;
-import com.meuusado.application.ports.AnuncioFotosServicePort;
 import com.meuusado.application.ports.AnuncioServicePort;
 
 @RestController
@@ -30,7 +29,7 @@ public class AnuncioController {
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<AnuncioResumidoDTO>> findAll() {
 		List<Anuncio> list = anuncioServicePort.findAll();
-		List<AnuncioResumidoDTO> listDto = list.stream().filter(x -> x.getBase64ImgPrincMin() != null).map(obj -> new AnuncioResumidoDTO(obj)).collect(Collectors.toList());
+		List<AnuncioResumidoDTO> listDto = list.stream().filter(x -> x.base64ImgPrincMin() != null).map(obj -> new AnuncioResumidoDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 	
@@ -43,7 +42,7 @@ public class AnuncioController {
 	@RequestMapping(value="/filter/{query}", method=RequestMethod.GET)
 	public ResponseEntity<List<AnuncioResumidoDTO>> find(@PathVariable String query) {
 		List<Anuncio> list = anuncioServicePort.findByQuery(query);
-		List<AnuncioResumidoDTO> listDto = list.stream().filter(x -> x.getBase64ImgPrincMin() != null).map(obj -> new AnuncioResumidoDTO(obj)).collect(Collectors.toList());
+		List<AnuncioResumidoDTO> listDto = list.stream().filter(x -> x.base64ImgPrincMin() != null).map(obj -> new AnuncioResumidoDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 	
@@ -71,8 +70,7 @@ public class AnuncioController {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<?> delete(@PathVariable Long id) {
-		Anuncio anuncio = new Anuncio();
-		anuncio = anuncioServicePort.findById(id);
+		Anuncio anuncio = anuncioServicePort.findById(id);
 		anuncioServicePort.delete(anuncio);
 		return ResponseEntity.noContent().build();
 	}

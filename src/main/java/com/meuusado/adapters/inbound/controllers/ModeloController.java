@@ -53,8 +53,8 @@ public class ModeloController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Modelo> save(@RequestBody ModeloDTO modeloDto) {
-		Modelo modelo = new Modelo(); 
-		BeanUtils.copyProperties(modeloDto, modelo);
+		Marca marca = marcaServicePort.findById(modeloDto.getIdMarca());
+		Modelo modelo = new Modelo(modeloDto.getIdModelo(), modeloDto.getNomeModelo(), marca); 
 		modelo = modeloServicePort.save(modelo);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(modelo).toUri();
@@ -63,9 +63,8 @@ public class ModeloController {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Modelo> update(@RequestBody ModeloDTO modeloDto, @PathVariable Long id) {	
-		Modelo modelo = new Modelo();
-		modeloDto.setIdModelo(id);
-		BeanUtils.copyProperties(modeloDto, modelo);
+		Marca marca = marcaServicePort.findById(modeloDto.getIdMarca());
+		Modelo modelo = new Modelo(id, modeloDto.getNomeModelo(), marca);
 		modelo = modeloServicePort.update(modelo);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(modelo).toUri();

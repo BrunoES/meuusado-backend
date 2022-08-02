@@ -20,6 +20,8 @@ public class VeiculoDTO implements Serializable {
 	
 	private String nomeMarca;
 	
+	private String placa;
+	
 	public VeiculoDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -38,7 +40,7 @@ public class VeiculoDTO implements Serializable {
 		this.idModelo = idModelo;
 	}
 	
-	public VeiculoDTO(Long idVeiculo, Long idUsuario, Long idModelo, String nomeModelo, Long idMarca, String nomeMarca) {
+	public VeiculoDTO(Long idVeiculo, Long idUsuario, Long idModelo, String nomeModelo, Long idMarca, String nomeMarca, String placa) {
 		super();
 		this.idVeiculo = idVeiculo;
 		this.idUsuario = idUsuario;
@@ -46,16 +48,18 @@ public class VeiculoDTO implements Serializable {
 		this.nomeModelo = nomeModelo;
 		this.idMarca = idMarca;
 		this.nomeMarca = nomeMarca;
+		this.placa = placa;
 	}
 
 	public VeiculoDTO(Veiculo veiculo) {
 		super();
-		this.idVeiculo = veiculo.getIdVeiculo();
-		this.idUsuario = veiculo.getUsuario().getIdUsuario();
-		this.idModelo = veiculo.getModelo().getIdModelo();
-		this.nomeModelo = veiculo.getModelo().getName();
-		this.idMarca = veiculo.getModelo().getMarca().getIdMarca();
-		this.nomeMarca = veiculo.getModelo().getMarca().getNome();
+		this.idVeiculo = veiculo.idVeiculo();
+		this.idUsuario = veiculo.usuario().idUsuario();
+		this.idModelo = veiculo.modelo().idModelo();
+		this.nomeModelo = veiculo.modelo().nome();
+		this.idMarca = veiculo.modelo().marca().idMarca();
+		this.nomeMarca = veiculo.modelo().marca().nome();
+		this.placa = veiculo.placa().texto();
 	}
 	
 	public Long getIdVeiculo() {
@@ -106,4 +110,12 @@ public class VeiculoDTO implements Serializable {
 		this.nomeMarca = nomeMarca;
 	}
 
+	public String getPlaca() {
+		return placa;
+	}
+
+	public void setPlaca(String placa) {
+		this.placa = placa;
+	}
+	
 }

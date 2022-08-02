@@ -51,10 +51,10 @@ public class ModeloDTO implements Serializable {
 
 	public ModeloDTO(Modelo modelo) {
 		super();
-		this.idModelo = modelo.getIdModelo();
-		this.nomeModelo = modelo.getName();
-		this.idMarca = modelo.getMarca().getIdMarca();
-		this.nomeMarca = modelo.getMarca().getNome();
+		this.idModelo = modelo.idModelo();
+		this.nomeModelo = modelo.nome();
+		this.idMarca = modelo.marca().idMarca();
+		this.nomeMarca = modelo.marca().nome();
 	}
 	
 	public Long getIdModelo() {

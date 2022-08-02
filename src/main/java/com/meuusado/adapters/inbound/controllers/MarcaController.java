@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,8 +39,7 @@ public class MarcaController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Marca> save(@RequestBody MarcaDTO marcaDto) {
-		Marca marca = new Marca(); 
-		BeanUtils.copyProperties(marcaDto, marca);
+		Marca marca = new Marca(marcaDto.getIdMarca(), marcaDto.getNome());
 		marca = marcaServicePort.save(marca);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(marca).toUri();
@@ -50,9 +48,7 @@ public class MarcaController {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Marca> update(@RequestBody MarcaDTO marcaDto, @PathVariable Long id) {
-		Marca marca = new Marca(); 
-		marcaDto.setIdMarca(id);
-		BeanUtils.copyProperties(marcaDto, marca);
+		Marca marca = new Marca(id, marcaDto.getNome());
 		marca = marcaServicePort.update(marca);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(marca).toUri();

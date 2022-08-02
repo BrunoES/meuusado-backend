@@ -39,10 +39,10 @@ public class UsuarioDTO implements Serializable {
 
 	public UsuarioDTO(Usuario usuario) {
 		super();
-		this.idUsuario = usuario.getIdUsuario();
-		this.name = usuario.getNome();
-		this.email = usuario.getEmail();
-		this.password = usuario.getPassword();
+		this.idUsuario = usuario.idUsuario();
+		this.name = usuario.nome();
+		this.email = usuario.email();
+		this.password = usuario.password();
 	}
 	
 	public Long getIdUsuario() {

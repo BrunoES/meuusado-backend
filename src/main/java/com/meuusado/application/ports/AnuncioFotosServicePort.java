@@ -2,7 +2,7 @@ package com.meuusado.application.ports;
 
 import java.util.List;
 
-import com.meuusado.application.domain.Anuncio;
+import com.meuusado.application.domain.AnuncioOld;
 import com.meuusado.application.domain.AnuncioFotos;
 
 public interface AnuncioFotosServicePort {
@@ -11,7 +11,7 @@ public interface AnuncioFotosServicePort {
 	
 	AnuncioFotos findById(Long id);
 	
-	List<AnuncioFotos> findByAnuncio(Anuncio anuncio);
+	List<AnuncioFotos> findByAnuncio(AnuncioOld anuncio);
 	
 	AnuncioFotos save(AnuncioFotos anuncioFotos);
 	

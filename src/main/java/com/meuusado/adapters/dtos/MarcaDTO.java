@@ -29,8 +29,8 @@ public class MarcaDTO implements Serializable {
 	}
 	
 	public MarcaDTO(Marca marca) {
-		this.idMarca = marca.getIdMarca();
-		this.nome = marca.getNome();
+		this.idMarca = marca.idMarca();
+		this.nome = marca.nome();
 	}
 
 	public Long getIdMarca() {

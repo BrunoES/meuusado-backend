@@ -7,7 +7,7 @@ public class ValidacaoTamanhoPlacaImpl implements ValidacaoPlaca {
 
     @Override
     public Boolean validar(Placa placa) throws Exception {
-        if (placa.getTexto().length() < 7) {
+        if (placa.texto().length() < 7) {
             throw new Exception("Tamanho de placa inválido.");
         }
         return true;
