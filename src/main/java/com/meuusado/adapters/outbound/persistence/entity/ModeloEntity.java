@@ -1,5 +1,7 @@
 package com.meuusado.adapters.outbound.persistence.entity;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.meuusado.application.domain.Modelo;
 
 @Entity
 @Table(name = "MU_MODELO")
@@ -57,6 +61,12 @@ public class ModeloEntity {
 
 	public void setMarca(MarcaEntity marca) {
 		this.marca = marca;
+	}
+	
+	public Modelo toDomain() {
+		return new Modelo(this.idModelo,
+				this.name,
+				Objects.isNull(this.marca) ? null : this.marca.toDomain());
 	}
 	
 }

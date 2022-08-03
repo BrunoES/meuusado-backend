@@ -24,13 +24,15 @@ public class PostgresAnuncioRepository implements AnuncioRepositoryPort {
 	
 	@Override
 	public List<Anuncio> findAll() {
-		return anuncioRepository.findAll().stream().map(x -> modelMapper.map(x, Anuncio.class)).collect(Collectors.toList());
+		//return anuncioRepository.findAll().stream().map(x -> modelMapper.map(x, Anuncio.class)).collect(Collectors.toList());
+		return anuncioRepository.findAll().stream().map(x -> x.toDomain()).collect(Collectors.toList());
 	}
 
 	@Override
 	public Anuncio findById(Long id) {
 		AnuncioEntity anuncioEntity = anuncioRepository.findById(id).orElse(null);
-		return modelMapper.map(anuncioEntity, Anuncio.class);
+		//return modelMapper.map(anuncioEntity, Anuncio.class);
+		return anuncioEntity.toDomain();
 	}
 
 	@Override

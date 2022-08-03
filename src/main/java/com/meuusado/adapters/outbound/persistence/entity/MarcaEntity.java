@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.meuusado.application.domain.Marca;
+
 @Entity
 @Table(name = "MU_MARCA")
 public class MarcaEntity {
@@ -44,5 +46,8 @@ public class MarcaEntity {
 		this.nome = nome;
 	}
 	
+	public Marca toDomain() {
+		return new Marca(this.idMarca, this.nome);
+	}
 	
 }

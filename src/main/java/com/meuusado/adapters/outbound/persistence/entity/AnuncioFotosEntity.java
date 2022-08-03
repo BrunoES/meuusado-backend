@@ -1,5 +1,7 @@
 package com.meuusado.adapters.outbound.persistence.entity;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.meuusado.application.domain.AnuncioFotos;
 
 @Entity
 @Table(name = "MU_ANUNCIO_FOTOS")
@@ -46,6 +50,12 @@ public class AnuncioFotosEntity {
 
 	public void setBase64Img(String base64Img) {
 		this.base64Img = base64Img;
+	}
+	
+	public AnuncioFotos toDomain() {
+		return new AnuncioFotos(this.idFoto,
+				Objects.isNull(this.anuncio) ? null : this.anuncio.toDomain(),
+				this.base64Img);
 	}
 
 }

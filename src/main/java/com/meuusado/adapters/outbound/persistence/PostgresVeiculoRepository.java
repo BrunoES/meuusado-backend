@@ -24,13 +24,15 @@ public class PostgresVeiculoRepository implements VeiculoRepositoryPort {
 	
 	@Override
 	public List<Veiculo> findAll() {
-		return veiculoRepository.findAll().stream().map(x -> modelMapper.map(x, Veiculo.class)).collect(Collectors.toList());
+		//return veiculoRepository.findAll().stream().map(x -> modelMapper.map(x, Veiculo.class)).collect(Collectors.toList());
+		return veiculoRepository.findAll().stream().map(x -> x.toDomain()).collect(Collectors.toList());
 	}
 
 	@Override
 	public Veiculo findById(Long id) {
-		VeiculoEntity VeiculoEntity = veiculoRepository.findById(id).orElse(null);
-		return modelMapper.map(VeiculoEntity, Veiculo.class);
+		VeiculoEntity veiculoEntity = veiculoRepository.findById(id).orElse(null);
+		//return modelMapper.map(veiculoEntity, Veiculo.class);
+		return veiculoEntity.toDomain();
 	}
 
 	@Override

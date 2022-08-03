@@ -17,7 +17,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.meuusado.adapters.dtos.AnuncioDTO;
 import com.meuusado.adapters.dtos.AnuncioResumidoDTO;
 import com.meuusado.application.domain.Anuncio;
+import com.meuusado.application.domain.Modelo;
+import com.meuusado.application.domain.Usuario;
 import com.meuusado.application.ports.AnuncioServicePort;
+import com.meuusado.application.ports.ModeloServicePort;
+import com.meuusado.application.ports.UsuarioServicePort;
 
 @RestController
 @RequestMapping(value="/api/v1/anuncio")
@@ -25,6 +29,12 @@ public class AnuncioController {
 	
 	@Autowired
 	private AnuncioServicePort anuncioServicePort;
+	
+	@Autowired
+	private ModeloServicePort modeloServicePort;
+	
+	@Autowired
+	private UsuarioServicePort usuarioServicePort;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<AnuncioResumidoDTO>> findAll() {
@@ -48,9 +58,9 @@ public class AnuncioController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Anuncio> save(/*@Valid*/ @RequestBody AnuncioDTO anuncioDto) {
-		Anuncio anuncio = new Anuncio(); 
-		BeanUtils.copyProperties(anuncioDto, anuncio);
-		anuncio.setBase64ImgPrincMin(anuncioDto.getBase64Imagem());
+		Modelo modelo = modeloServicePort.findById(anuncioDto.getIdModelo());
+		Usuario usuario = usuarioServicePort.findById(anuncioDto.getIdUsuario());
+		Anuncio anuncio = new Anuncio(anuncioDto.getIdAnuncio(), usuario, modelo, anuncioDto.getTitulo(), anuncioDto.getDescricao(), anuncioDto.getAno(), anuncioDto.getValor(), anuncioDto.getDataCriacao(), anuncioDto.getBase64Imagem(), "", anuncioDto.getListAnuncioFotos()); 
 		anuncio = anuncioServicePort.save(anuncio);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(anuncio).toUri();
@@ -59,9 +69,9 @@ public class AnuncioController {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Anuncio> update(@RequestBody AnuncioDTO anuncioDto, @PathVariable Long id) {
-		Anuncio anuncio = new Anuncio(); 
-		anuncioDto.setIdAnuncio(id);
-		BeanUtils.copyProperties(anuncioDto, anuncio);
+		Modelo modelo = modeloServicePort.findById(anuncioDto.getIdModelo());
+		Usuario usuario = usuarioServicePort.findById(anuncioDto.getIdUsuario());
+		Anuncio anuncio = new Anuncio(id, usuario, modelo, anuncioDto.getTitulo(), anuncioDto.getDescricao(), anuncioDto.getAno(), anuncioDto.getValor(), anuncioDto.getDataCriacao(), anuncioDto.getBase64Imagem(), "", anuncioDto.getListAnuncioFotos());
 		anuncio = anuncioServicePort.save(anuncio);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(anuncio).toUri();

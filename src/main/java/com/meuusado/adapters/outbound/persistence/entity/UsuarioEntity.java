@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.meuusado.application.domain.Usuario;
+
 @Entity
 @Table(name = "MU_USUARIO")
 public class UsuarioEntity {
@@ -70,5 +72,8 @@ public class UsuarioEntity {
 		this.password = password;
 	}
 	
+	public Usuario toDomain() {
+		return new Usuario(this.idUsuario, this.nome, this.email, this.password);
+	}
 	
 }

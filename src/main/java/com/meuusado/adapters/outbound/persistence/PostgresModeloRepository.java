@@ -26,13 +26,15 @@ public class PostgresModeloRepository implements ModeloRepositoryPort {
 	
 	@Override
 	public List<Modelo> findAll() {
-		return modeloRepository.findAll().stream().map(x -> modelMapper.map(x, Modelo.class)).collect(Collectors.toList());
+		//return modeloRepository.findAll().stream().map(x -> modelMapper.map(x, Modelo.class)).collect(Collectors.toList());
+		return modeloRepository.findAll().stream().map(x -> x.toDomain()).collect(Collectors.toList());
 	}
 
 	@Override
 	public Modelo findById(Long id) {
 		ModeloEntity modeloEntity = modeloRepository.findById(id).orElse(null);
-		return modelMapper.map(modeloEntity, Modelo.class);
+		//return modelMapper.map(modeloEntity, Modelo.class);
+		return modeloEntity.toDomain();
 	}
 
 	@Override

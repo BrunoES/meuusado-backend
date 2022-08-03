@@ -2,6 +2,8 @@ package com.meuusado.adapters.outbound.persistence.entity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +17,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.meuusado.application.domain.Anuncio;
+import com.meuusado.application.domain.AnuncioFotos;
+import com.meuusado.application.domain.Modelo;
+import com.meuusado.application.domain.Usuario;
 
 @Entity
 @Table(name = "MU_ANUNCIO")
@@ -174,6 +180,21 @@ public class AnuncioEntity {
 
 	public void setListAnuncioFotos(List<AnuncioFotosEntity> listAnuncioFotos) {
 		this.listAnuncioFotos = listAnuncioFotos;
+	}
+	
+	public Anuncio toDomain() {
+		List<AnuncioFotos> listAnuncioFotosDomain = this.listAnuncioFotos.stream().map(x -> x.toDomain()).collect(Collectors.toList());
+		return new Anuncio(this.idAnuncio,
+				Objects.isNull(this.usuarioEntity) ? null : this.usuarioEntity.toDomain(),
+				Objects.isNull(this.modeloEntity) ? null : this.modeloEntity.toDomain(),
+				this.titulo,
+				this.descricao,
+				this.ano,
+				this.valor,
+				this.dataCriacao,
+				this.base64ImgPrincMin,
+				this.pathImagem,
+				listAnuncioFotosDomain);
 	}
 	
 }
