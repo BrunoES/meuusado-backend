@@ -12,18 +12,12 @@ target/
 .settings
 .springBeans
 .sts4-cache
-.mvn
 
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
-*.md
-*.bat
-*.sh
-*.cmd
-*mvnw*
 
 ### NetBeans ###
 /nbproject/private/
@@ -32,13 +26,8 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
-*/bin/
-*/target/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
-
-### General ###
-target/
