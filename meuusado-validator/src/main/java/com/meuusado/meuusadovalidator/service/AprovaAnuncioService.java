@@ -15,7 +15,7 @@ public class AprovaAnuncioService {
 	private void consume() throws IOException {
 		AprovaAnuncioService aprovaAnuncioService = new AprovaAnuncioService();
 		try(KafkaService<AnuncioDTO> service = new KafkaService(AprovaAnuncioService.class.getSimpleName(),
-				Pattern.compile("ANNOUNCEMENT-VALIDATION.*"),
+				Pattern.compile("MEUUSADO.ANNOUNCEMENT-VALIDATION"),
 				aprovaAnuncioService::parse,
 				String.class,
 				Map.of(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())

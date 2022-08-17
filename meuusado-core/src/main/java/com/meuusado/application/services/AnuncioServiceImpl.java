@@ -2,7 +2,10 @@ package com.meuusado.application.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
+import com.meuusado.adapters.outbound.messaging.KafkaDispatcher;
 import com.meuusado.application.domain.Anuncio;
 import com.meuusado.application.domain.AnuncioFotos;
 import com.meuusado.application.ports.AnuncioFotosRepositoryPort;
@@ -11,6 +14,8 @@ import com.meuusado.application.ports.AnuncioServicePort;
 
 public class AnuncioServiceImpl implements AnuncioServicePort {
 
+	private static KafkaDispatcher<Anuncio> anuncioDispatcher = new KafkaDispatcher<>();
+	
 	private final AnuncioRepositoryPort anuncioRepository;
 	
 	private final AnuncioFotosRepositoryPort anuncioFotosRepositoryPort;
@@ -42,8 +47,8 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 			AnuncioFotos anuncioFotos = new AnuncioFotos(x.idFoto(), anuncioReturn, x.base64Img());
 			listAnuncioFotos.add(anuncioFotosRepositoryPort.save(anuncioFotos));
 		});
-		
-		//anuncioReturn.setListAnuncioFotos(listAnuncioFotos);
+
+		submitValidation(anuncioReturn);
 		return anuncioReturn;
 	}
 
@@ -88,6 +93,15 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 		});
 		
 		return resultList;
+	}
+	
+	private void submitValidation(Anuncio anuncio) {
+		String key = UUID.randomUUID().toString();
+		try {
+			anuncioDispatcher.send("MEUUSADO.ANNOUNCEMENT-VALIDATION", key, anuncio);
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		}
 	}
 
 	
