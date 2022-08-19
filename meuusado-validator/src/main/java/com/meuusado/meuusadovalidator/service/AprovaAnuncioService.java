@@ -7,15 +7,18 @@ import java.util.regex.Pattern;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Service;
 
 import com.meuusado.meuusadovalidator.dto.AnuncioDTO;
 
+@Service
 public class AprovaAnuncioService {
 	
-	private void consume() throws IOException {
+	public static void consume() throws IOException {
 		AprovaAnuncioService aprovaAnuncioService = new AprovaAnuncioService();
 		try(KafkaService<AnuncioDTO> service = new KafkaService(AprovaAnuncioService.class.getSimpleName(),
-				Pattern.compile("MEUUSADO.ANNOUNCEMENT-VALIDATION"),
+				Pattern.compile("MEUUSADO.*"),
 				aprovaAnuncioService::parse,
 				String.class,
 				Map.of(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
