@@ -43,8 +43,8 @@ public class UsuarioController {
 		usuario = usuarioServicePort.save(usuario);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(usuario.idUsuario()).toUri();
-		return ResponseEntity.ok().body(usuario);
-		//return ResponseEntity.created(uri).build();
+		//return ResponseEntity.ok().body(usuario);
+		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)

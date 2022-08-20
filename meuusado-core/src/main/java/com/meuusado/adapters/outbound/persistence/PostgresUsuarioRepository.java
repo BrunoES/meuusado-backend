@@ -43,7 +43,10 @@ public class PostgresUsuarioRepository implements UsuarioRepositoryPort {
 
 	@Override
 	public Usuario save(Usuario usuario) {
-		UsuarioEntity usuarioEntity = modelMapper.map(usuario, UsuarioEntity.class);
+		UsuarioEntity usuarioEntity = new UsuarioEntity();
+		usuarioEntity.setEmail(usuario.email());
+		usuarioEntity.setNome(usuario.nome());
+		usuarioEntity.setPassword(usuario.password());
 		return usuarioRepository.save(usuarioEntity).toDomain();
 	}
 

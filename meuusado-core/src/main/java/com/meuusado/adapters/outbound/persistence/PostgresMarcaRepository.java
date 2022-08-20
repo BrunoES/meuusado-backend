@@ -36,8 +36,10 @@ public class PostgresMarcaRepository implements MarcaRepositoryPort {
 
 	@Override
 	public Marca save(Marca marca) {
-		MarcaEntity MarcaEntity = modelMapper.map(marca, MarcaEntity.class);
-		return MarcaEntity.toDomain();
+		MarcaEntity marcaEntity = new MarcaEntity();
+		marcaEntity.setNome(marca.nome());
+		marcaEntity = marcaRepository.save(marcaEntity);
+		return marcaEntity.toDomain();
 	}
 
 	@Override

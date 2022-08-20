@@ -23,7 +23,7 @@ public class PostgresModeloRepository implements ModeloRepositoryPort {
 	private SpringDataPostgresModeloRepository modeloRepository;
 	
 	@Autowired
-	private SpringDataPostgresMarcaRepository marcaRepository;
+	private PostgresMarcaRepository marcaRepository;
 	
 	@Autowired
     private ModelMapper modelMapper;
@@ -33,8 +33,7 @@ public class PostgresModeloRepository implements ModeloRepositoryPort {
 		List<Modelo> listModelosDomain = new ArrayList<Modelo>();
 		
 		modeloRepository.findAll().forEach(modeloEntity -> {
-			modeloEntity = fillModelo(modeloEntity);
-			listModelosDomain.add(modeloEntity.toDomain());
+			listModelosDomain.add(fillModelo(modeloEntity));
 		});
 		
 		return listModelosDomain;
@@ -43,15 +42,16 @@ public class PostgresModeloRepository implements ModeloRepositoryPort {
 	@Override
 	public Modelo findById(Long id) {
 		ModeloEntity modeloEntity = modeloRepository.findById(id).orElse(null);
-		modeloEntity = fillModelo(modeloEntity);
-		return modeloEntity.toDomain();
+		return fillModelo(modeloEntity);
 	}
 
 	@Override
 	public Modelo save(Modelo modelo) {
-		ModeloEntity modeloEntity = modelMapper.map(modelo, ModeloEntity.class);
-		modeloEntity = fillModelo(modeloEntity);
-		return modeloEntity.toDomain();
+		ModeloEntity modeloEntity = new ModeloEntity();
+		modeloEntity.setIdMarca(modelo.marca().idMarca());
+		modeloEntity.setName(modelo.nome());
+		modeloEntity = modeloRepository.save(modeloEntity);
+		return fillModelo(modeloEntity);
 	}
 
 	@Override
@@ -83,10 +83,10 @@ public class PostgresModeloRepository implements ModeloRepositoryPort {
 
 	}
 	
-	private ModeloEntity fillModelo(ModeloEntity modeloEntity) {
-		MarcaEntity marcaEntity = marcaRepository.findById(modeloEntity.getIdMarca()).orElse(null);
-		modeloEntity.setMarca(marcaEntity);
-		return modeloEntity;
+	private Modelo fillModelo(ModeloEntity modeloEntity) {
+		Marca marca = marcaRepository.findById(modeloEntity.getIdMarca());
+		Modelo modelo = new Modelo(modeloEntity.getIdModelo(), modeloEntity.getName(), marca);
+		return modelo;
 	}
 
 }

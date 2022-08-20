@@ -10,7 +10,7 @@ public class UsuarioDTO implements Serializable {
 
 	private Long idUsuario;
 	
-	private String name;
+	private String nome;
 	
 	private String email;
 	
@@ -23,7 +23,7 @@ public class UsuarioDTO implements Serializable {
 
 	public UsuarioDTO(String nome, String email, String password) {
 		super();
-		this.name = nome;
+		this.nome = nome;
 		this.email = email;
 		this.password = password;
 	}
@@ -32,7 +32,7 @@ public class UsuarioDTO implements Serializable {
 	public UsuarioDTO(Long idUsuario, String nome, String email, String password) {
 		super();
 		this.idUsuario = idUsuario;
-		this.name = nome;
+		this.nome = nome;
 		this.email = email;
 		this.password = password;
 	}
@@ -40,7 +40,7 @@ public class UsuarioDTO implements Serializable {
 	public UsuarioDTO(Usuario usuario) {
 		super();
 		this.idUsuario = usuario.idUsuario();
-		this.name = usuario.nome();
+		this.nome = usuario.nome();
 		this.email = usuario.email();
 		this.password = usuario.password();
 	}
@@ -54,11 +54,11 @@ public class UsuarioDTO implements Serializable {
 	}
 
 	public String getNome() {
-		return name;
+		return nome;
 	}
 
 	public void setNome(String nome) {
-		this.name = nome;
+		this.nome = nome;
 	}
 
 	public String getEmail() {

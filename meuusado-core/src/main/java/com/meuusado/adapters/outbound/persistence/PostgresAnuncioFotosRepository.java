@@ -43,6 +43,12 @@ public class PostgresAnuncioFotosRepository implements AnuncioFotosRepositoryPor
 	}
 	
 	@Override
+	public List<AnuncioFotos> findByAnuncio(Long idAnuncio) {
+		List<AnuncioFotosEntity> listAnuncioFotosEntity = anuncioFotosRepository.findByIdAnuncio(idAnuncio);
+		return listAnuncioFotosEntity.stream().map(x -> modelMapper.map(x, AnuncioFotos.class)).collect(Collectors.toList());
+	}
+	
+	@Override
 	public AnuncioFotos save(AnuncioFotos veiculo) {
 		AnuncioFotosEntity anuncioFotosEntity = modelMapper.map(veiculo, AnuncioFotosEntity.class);
 		return modelMapper.map(anuncioFotosRepository.save(anuncioFotosEntity), AnuncioFotos.class);

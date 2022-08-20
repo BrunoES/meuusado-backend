@@ -59,7 +59,7 @@ public class VeiculoDTO implements Serializable {
 		this.nomeModelo = veiculo.modelo().nome();
 		this.idMarca = veiculo.modelo().marca().idMarca();
 		this.nomeMarca = veiculo.modelo().marca().nome();
-		this.placa = veiculo.placa().texto();
+		this.placa = (veiculo.placa() != null ? veiculo.placa().texto() : "");
 	}
 	
 	public Long getIdVeiculo() {

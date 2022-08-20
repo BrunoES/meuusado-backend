@@ -28,12 +28,16 @@ public class AnuncioEntity {
 	@Column(name="ID_ANUNCIO")
 	private Long idAnuncio;
 	
-	@ManyToOne
-	@JoinColumn(name="ID_USUARIO")
+	@Column(name="ID_USUARIO")
+	private Long idUsuario;
+	
+	@Transient
 	private UsuarioEntity usuarioEntity;
 	
-	@ManyToOne
-	@JoinColumn(name="ID_MODELO")
+	@Column(name="ID_MODELO")
+	private Long idModelo;
+	
+	@Transient
 	private ModeloEntity modeloEntity;
 	
 	@Column(name="TITULO")
@@ -113,6 +117,22 @@ public class AnuncioEntity {
 
 	public void setModeloEntity(ModeloEntity modeloEntity) {
 		this.modeloEntity = modeloEntity;
+	}
+
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public Long getIdModelo() {
+		return idModelo;
+	}
+
+	public void setIdModelo(Long idModelo) {
+		this.idModelo = idModelo;
 	}
 
 	public String getTitulo() {

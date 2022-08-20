@@ -3,16 +3,16 @@ package com.meuusado.adapters.outbound.persistence;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import com.meuusado.adapters.outbound.persistence.entity.AnuncioEntity;
-import com.meuusado.adapters.outbound.persistence.entity.AnuncioFotosEntity;
 import com.meuusado.application.domain.Anuncio;
+import com.meuusado.application.domain.AnuncioFotos;
+import com.meuusado.application.domain.Modelo;
+import com.meuusado.application.domain.Usuario;
 import com.meuusado.application.ports.AnuncioRepositoryPort;
 
 @Component
@@ -23,7 +23,13 @@ public class PostgresAnuncioRepository implements AnuncioRepositoryPort {
 	private SpringDataPostgresAnuncioRepository anuncioRepository;
 	
 	@Autowired
-	private SpringDataPostgresAnuncioFotosRepository anuncioFotosRepository;
+	private PostgresAnuncioFotosRepository anuncioFotosRepository;
+	
+	@Autowired
+	private PostgresModeloRepository modeloRepository;
+	
+	@Autowired
+	private PostgresUsuarioRepository usuarioRepository;
 	
 	@Autowired
     private ModelMapper modelMapper;
@@ -33,8 +39,7 @@ public class PostgresAnuncioRepository implements AnuncioRepositoryPort {
 		List<Anuncio> listAnunciosDomain = new ArrayList<Anuncio>();
 		
 		anuncioRepository.findAll().forEach(anuncioEntity -> {
-			anuncioEntity = fillAnuncio(anuncioEntity);
-			listAnunciosDomain.add(anuncioEntity.toDomain());
+			listAnunciosDomain.add(fillAnuncio(anuncioEntity));
 		});
 		
 		return listAnunciosDomain;
@@ -43,8 +48,7 @@ public class PostgresAnuncioRepository implements AnuncioRepositoryPort {
 	@Override
 	public Anuncio findById(Long id) {
 		AnuncioEntity anuncioEntity = anuncioRepository.findById(id).orElse(null);
-		anuncioEntity = fillAnuncio(anuncioEntity);
-		return anuncioEntity.toDomain();
+		return fillAnuncio(anuncioEntity);
 	}
 
 	@Override
@@ -59,14 +63,11 @@ public class PostgresAnuncioRepository implements AnuncioRepositoryPort {
 		
 		anuncioEntity = anuncioRepository.save(anuncioEntity);
 		
-		final Long idAnuncio = anuncioEntity.getIdAnuncio();
-		
-		anuncio.listAnuncioFotos().stream().forEach(x -> {
-			anuncioFotosRepository.save(new AnuncioFotosEntity(null, idAnuncio, x.base64Img()));
+		anuncio.listAnuncioFotos().stream().forEach(anuncioFoto -> {
+			anuncioFotosRepository.save(anuncioFoto);
 		});
 		
-		anuncioEntity = fillAnuncio(anuncioEntity);
-		return anuncioEntity.toDomain();
+		return fillAnuncio(anuncioEntity);
 	}
 
 	@Override
@@ -75,11 +76,12 @@ public class PostgresAnuncioRepository implements AnuncioRepositoryPort {
 		anuncioRepository.delete(anuncioEntity);
 	}
 	
-	@Transactional
-	private AnuncioEntity fillAnuncio(AnuncioEntity anuncioEntity) {
-		List<AnuncioFotosEntity> listFotosAnuncioEntity = anuncioFotosRepository.findByIdAnuncio(anuncioEntity.getIdAnuncio());
-		anuncioEntity.setListAnuncioFotos(listFotosAnuncioEntity);
-		return anuncioEntity;
+	private Anuncio fillAnuncio(AnuncioEntity anuncioEntity) {
+		List<AnuncioFotos> listFotosAnuncio = anuncioFotosRepository.findByAnuncio(anuncioEntity.getIdAnuncio());
+		Modelo modelo = (anuncioEntity.getIdModelo() != null ? modeloRepository.findById(anuncioEntity.getIdModelo()) : null);
+		Usuario usuario = (anuncioEntity.getIdUsuario() != null ? usuarioRepository.findById(anuncioEntity.getIdUsuario()) : null);
+		Anuncio anuncio = new Anuncio(anuncioEntity.getIdAnuncio(), usuario, modelo, anuncioEntity.getTitulo(), anuncioEntity.getDescricao(), anuncioEntity.getAno(), anuncioEntity.getValor(), anuncioEntity.getDataCriacao(), anuncioEntity.getBase64ImgPrincMin(), anuncioEntity.getPathImagem(), listFotosAnuncio); 
+		return anuncio;
 	}
 
 }

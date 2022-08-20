@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import com.meuusado.adapters.outbound.persistence.entity.ModeloEntity;
 import com.meuusado.adapters.outbound.persistence.entity.UsuarioEntity;
 import com.meuusado.adapters.outbound.persistence.entity.VeiculoEntity;
+import com.meuusado.application.domain.Modelo;
+import com.meuusado.application.domain.Usuario;
 import com.meuusado.application.domain.Veiculo;
 import com.meuusado.application.ports.VeiculoRepositoryPort;
 
@@ -22,10 +24,10 @@ public class PostgresVeiculoRepository implements VeiculoRepositoryPort {
 	private SpringDataPostgresVeiculoRepository veiculoRepository;
 	
 	@Autowired
-	private SpringDataPostgresModeloRepository modeloRepository;
+	private PostgresModeloRepository modeloRepository;
 	
 	@Autowired
-	private SpringDataPostgresUsuarioRepository usuarioRepository;
+	private PostgresUsuarioRepository usuarioRepository;
 	
 	@Autowired
     private ModelMapper modelMapper;
@@ -35,8 +37,7 @@ public class PostgresVeiculoRepository implements VeiculoRepositoryPort {
 		List<Veiculo> listVeiculosDomain = new ArrayList<Veiculo>();
 		
 		veiculoRepository.findAll().forEach(veiculoEntity -> {
-			veiculoEntity = fillVeiculo(veiculoEntity);
-			listVeiculosDomain.add(veiculoEntity.toDomain());
+			listVeiculosDomain.add(fillVeiculo(veiculoEntity));
 		});
 		
 		return listVeiculosDomain;
@@ -45,15 +46,16 @@ public class PostgresVeiculoRepository implements VeiculoRepositoryPort {
 	@Override
 	public Veiculo findById(Long id) {
 		VeiculoEntity veiculoEntity = veiculoRepository.findById(id).orElse(null);
-		veiculoEntity = fillVeiculo(veiculoEntity);
-		return veiculoEntity.toDomain();
+		return fillVeiculo(veiculoEntity);
 	}
 
 	@Override
 	public Veiculo save(Veiculo veiculo) {
-		VeiculoEntity veiculoEntity = modelMapper.map(veiculo, VeiculoEntity.class);
-		veiculoEntity = fillVeiculo(veiculoEntity);
-		return veiculoEntity.toDomain();
+		VeiculoEntity veiculoEntity = new VeiculoEntity();
+		veiculoEntity.setIdModelo(veiculo.modelo().idModelo());
+		veiculoEntity.setIdUsuario(veiculo.usuario().idUsuario());
+		veiculoEntity = veiculoRepository.save(veiculoEntity);
+		return fillVeiculo(veiculoEntity);
 	}
 
 	@Override
@@ -62,12 +64,24 @@ public class PostgresVeiculoRepository implements VeiculoRepositoryPort {
 		veiculoRepository.delete(VeiculoEntity);
 	}
 	
+	/*
 	private VeiculoEntity fillVeiculo(VeiculoEntity veiculoEntity) {
 		ModeloEntity modeloEntity = modeloRepository.findById(veiculoEntity.getIdModelo()).orElse(null);
 		UsuarioEntity usuarioEntity = usuarioRepository.findById(veiculoEntity.getIdUsuario()).orElse(null);
 		veiculoEntity.setModelo(modeloEntity);
 		veiculoEntity.setUsuario(usuarioEntity);
+		
+		Veiculo veiculo = new Veiculo(null, null, null, null)
+		
 		return veiculoEntity;
+	}
+	*/
+	
+	private Veiculo fillVeiculo(VeiculoEntity veiculoEntity) {
+		Modelo modelo = modeloRepository.findById(veiculoEntity.getIdModelo());
+		Usuario usuario = usuarioRepository.findById(veiculoEntity.getIdUsuario());
+		Veiculo veiculo = new Veiculo(veiculoEntity.getIdVeiculo(), usuario, modelo, null);
+		return veiculo;
 	}
 
 }

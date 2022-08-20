@@ -13,6 +13,8 @@ public interface AnuncioFotosRepositoryPort {
 	
 	List<AnuncioFotos> findByAnuncio(Anuncio anuncio);
 	
+	List<AnuncioFotos> findByAnuncio(Long idAnuncio);
+	
 	AnuncioFotos save(AnuncioFotos anuncioFotos);
 	
 	void delete(AnuncioFotos anuncioFotos);
