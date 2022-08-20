@@ -7,20 +7,17 @@ import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.meuusado.application.domain.Anuncio;
 import com.meuusado.application.domain.AnuncioFotos;
-import com.meuusado.application.domain.Modelo;
-import com.meuusado.application.domain.Usuario;
 
 @Entity
 @Table(name = "MU_ANUNCIO")
@@ -62,7 +59,7 @@ public class AnuncioEntity {
 	@Column(name="PATH_IMAGEM")
 	private String pathImagem;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "anuncio")
+	@Transient
 	private List<AnuncioFotosEntity> listAnuncioFotos;
 	
 	public AnuncioEntity() {
@@ -183,7 +180,10 @@ public class AnuncioEntity {
 	}
 	
 	public Anuncio toDomain() {
-		List<AnuncioFotos> listAnuncioFotosDomain = this.listAnuncioFotos.stream().map(x -> x.toDomain()).collect(Collectors.toList());
+		List<AnuncioFotos> listAnuncioFotosDomain = null;
+		if(listAnuncioFotos != null) {
+			listAnuncioFotosDomain = this.listAnuncioFotos.stream().map(x -> x.toDomain()).collect(Collectors.toList());
+		}
 		return new Anuncio(this.idAnuncio,
 				Objects.isNull(this.usuarioEntity) ? null : this.usuarioEntity.toDomain(),
 				Objects.isNull(this.modeloEntity) ? null : this.modeloEntity.toDomain(),

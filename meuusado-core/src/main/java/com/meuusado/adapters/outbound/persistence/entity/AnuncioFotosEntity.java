@@ -6,9 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.meuusado.application.domain.AnuncioFotos;
 
@@ -21,12 +21,26 @@ public class AnuncioFotosEntity {
 	@Column(name="ID_FOTO")
 	private Long idFoto;
 	
-	@ManyToOne
-	@JoinColumn(name="ID_ANUNCIO")
-	private AnuncioEntity anuncio;
+	@Column(name="ID_ANUNCIO")
+	private Long idAnuncio;
 	
+	@Lob
 	@Column(name="BASE64_IMG")
 	private String base64Img;
+	
+	@Transient
+	private AnuncioEntity anuncio;
+	
+	public AnuncioFotosEntity() {
+		super();
+	}
+
+	public AnuncioFotosEntity(Long idFoto, Long idAnuncio, String base64Img) {
+		super();
+		this.idFoto = idFoto;
+		this.idAnuncio = idAnuncio;
+		this.base64Img = base64Img;
+	}
 
 	public Long getIdFoto() {
 		return idFoto;
@@ -36,12 +50,13 @@ public class AnuncioFotosEntity {
 		this.idFoto = idFoto;
 	}
 
-	public AnuncioEntity getAnuncio() {
-		return anuncio;
+
+	public Long getIdAnuncio() {
+		return idAnuncio;
 	}
 
-	public void setAnuncio(AnuncioEntity anuncio) {
-		this.anuncio = anuncio;
+	public void setIdAnuncio(Long idAnuncio) {
+		this.idAnuncio = idAnuncio;
 	}
 
 	public String getBase64Img() {

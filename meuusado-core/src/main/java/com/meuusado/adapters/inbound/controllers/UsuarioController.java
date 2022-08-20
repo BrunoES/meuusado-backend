@@ -42,7 +42,7 @@ public class UsuarioController {
 		Usuario usuario = new Usuario(usuarioDto.getIdUsuario(), usuarioDto.getNome(), usuarioDto.getEmail(), usuarioDto.getPassword());
 		usuario = usuarioServicePort.save(usuario);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(usuario).toUri();
+				.path("/{id}").buildAndExpand(usuario.idUsuario()).toUri();
 		return ResponseEntity.ok().body(usuario);
 		//return ResponseEntity.created(uri).build();
 	}
@@ -52,7 +52,7 @@ public class UsuarioController {
 		Usuario usuario = new Usuario(id, usuarioDto.getNome(), usuarioDto.getEmail(), usuarioDto.getPassword());
 		usuario = usuarioServicePort.update(usuario);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(usuario).toUri();
+				.path("/{id}").buildAndExpand(usuario.idUsuario()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	

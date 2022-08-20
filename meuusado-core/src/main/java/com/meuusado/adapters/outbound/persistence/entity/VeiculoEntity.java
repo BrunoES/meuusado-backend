@@ -6,9 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.meuusado.application.domain.Cor;
 import com.meuusado.application.domain.Placa;
@@ -23,23 +22,27 @@ public class VeiculoEntity {
 	@Column(name="ID_VEICULO")
 	private Long idVeiculo;
 	
-	@ManyToOne
-	@JoinColumn(name="ID_USUARIO")
+	@Column(name="ID_USUARIO")
+	private Long idUsuario;
+	
+	@Transient
 	private UsuarioEntity usuario;
 	
-	@ManyToOne
-	@JoinColumn(name="ID_MODELO")
+	@Column(name="ID_MODELO")
+	private Long idModelo;
+	
+	@Transient
 	private ModeloEntity modelo;
 
 	public VeiculoEntity() {
 		super();
 	}
 
-	public VeiculoEntity(Long idVeiculo, String name, UsuarioEntity usuario, ModeloEntity modelo) {
+	public VeiculoEntity(Long idVeiculo, String name, Long idUsuario, Long idModelo) {
 		super();
 		this.idVeiculo = idVeiculo;
-		this.usuario = usuario;
-		this.modelo = modelo;
+		this.idUsuario = idUsuario;
+		this.idModelo = idModelo;
 	}
 	
 	public Long getIdVeiculo() {
@@ -48,6 +51,22 @@ public class VeiculoEntity {
 
 	public void setIdVeiculo(Long id) {
 		this.idVeiculo = id;
+	}
+
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public Long getIdModelo() {
+		return idModelo;
+	}
+
+	public void setIdModelo(Long idModelo) {
+		this.idModelo = idModelo;
 	}
 
 	public UsuarioEntity getUsuario() {

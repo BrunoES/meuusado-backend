@@ -42,7 +42,7 @@ public class MarcaController {
 		Marca marca = new Marca(marcaDto.getIdMarca(), marcaDto.getNome());
 		marca = marcaServicePort.save(marca);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(marca).toUri();
+				.path("/{id}").buildAndExpand(marca.idMarca()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -51,7 +51,7 @@ public class MarcaController {
 		Marca marca = new Marca(id, marcaDto.getNome());
 		marca = marcaServicePort.update(marca);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(marca).toUri();
+				.path("/{id}").buildAndExpand(marca.idMarca()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	

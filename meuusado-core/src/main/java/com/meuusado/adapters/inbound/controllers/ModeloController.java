@@ -57,7 +57,7 @@ public class ModeloController {
 		Modelo modelo = new Modelo(modeloDto.getIdModelo(), modeloDto.getNomeModelo(), marca); 
 		modelo = modeloServicePort.save(modelo);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(modelo).toUri();
+				.path("/{id}").buildAndExpand(modelo.idModelo()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -67,7 +67,7 @@ public class ModeloController {
 		Modelo modelo = new Modelo(id, modeloDto.getNomeModelo(), marca);
 		modelo = modeloServicePort.update(modelo);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(modelo).toUri();
+				.path("/{id}").buildAndExpand(modelo.idModelo()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	

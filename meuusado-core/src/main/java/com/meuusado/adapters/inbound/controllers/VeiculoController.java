@@ -57,7 +57,7 @@ public class VeiculoController {
 		Veiculo veiculo = new Veiculo(veiculoDto.getIdVeiculo(), usuario, modelo, new Placa(veiculoDto.getPlaca(), new Cor("Azul")));
 		veiculo = veiculoServicePort.save(veiculo);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(veiculo).toUri();
+				.path("/{id}").buildAndExpand(veiculo.idVeiculo()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -68,7 +68,7 @@ public class VeiculoController {
 		Veiculo veiculo = new Veiculo(id, usuario, modelo, new Placa(veiculoDto.getPlaca(), new Cor("Azul")));
 		veiculo = veiculoServicePort.update(veiculo);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(veiculo).toUri();
+				.path("/{id}").buildAndExpand(veiculo.idVeiculo()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	

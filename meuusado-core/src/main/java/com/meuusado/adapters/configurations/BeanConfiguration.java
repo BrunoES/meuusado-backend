@@ -1,6 +1,5 @@
 package com.meuusado.adapters.configurations;
 
-import com.meuusado.application.ports.AnuncioFotosRepositoryPort;
 import com.meuusado.application.ports.AnuncioRepositoryPort;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -24,8 +23,8 @@ import com.meuusado.application.services.VeiculoServiceImpl;
 public class BeanConfiguration {
 
     @Bean
-    public AnuncioServiceImpl anuncioServiceImpl(AnuncioRepositoryPort anuncioRepositoryPort, AnuncioFotosRepositoryPort anuncioFotosRepositoryPort) {
-        return new AnuncioServiceImpl(anuncioRepositoryPort, anuncioFotosRepositoryPort);
+    public AnuncioServiceImpl anuncioServiceImpl(AnuncioRepositoryPort anuncioRepositoryPort) {
+        return new AnuncioServiceImpl(anuncioRepositoryPort);
     }
     
     @Bean

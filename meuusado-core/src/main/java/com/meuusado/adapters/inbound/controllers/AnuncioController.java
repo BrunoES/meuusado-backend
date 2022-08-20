@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.meuusado.adapters.dtos.AnuncioDTO;
 import com.meuusado.adapters.dtos.AnuncioResumidoDTO;
 import com.meuusado.application.domain.Anuncio;
+import com.meuusado.application.domain.AnuncioFotos;
 import com.meuusado.application.domain.Modelo;
 import com.meuusado.application.domain.Usuario;
 import com.meuusado.application.ports.AnuncioServicePort;
@@ -60,10 +60,11 @@ public class AnuncioController {
 	public ResponseEntity<Anuncio> save(/*@Valid*/ @RequestBody AnuncioDTO anuncioDto) {
 		Modelo modelo = modeloServicePort.findById(anuncioDto.getIdModelo());
 		Usuario usuario = usuarioServicePort.findById(anuncioDto.getIdUsuario());
-		Anuncio anuncio = new Anuncio(anuncioDto.getIdAnuncio(), usuario, modelo, anuncioDto.getTitulo(), anuncioDto.getDescricao(), anuncioDto.getAno(), anuncioDto.getValor(), anuncioDto.getDataCriacao(), anuncioDto.getBase64Imagem(), "", anuncioDto.getListAnuncioFotos()); 
+		List<AnuncioFotos> listAnuncioFotos = anuncioDto.getListAnuncioFotosBase64().stream().map(x-> new AnuncioFotos(null, null, x)).collect(Collectors.toList());
+		Anuncio anuncio = new Anuncio(anuncioDto.getIdAnuncio(), usuario, modelo, anuncioDto.getTitulo(), anuncioDto.getDescricao(), anuncioDto.getAno(), anuncioDto.getValor(), anuncioDto.getDataCriacao(), anuncioDto.getBase64Imagem(), "", listAnuncioFotos); 
 		anuncio = anuncioServicePort.save(anuncio);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(anuncio).toUri();
+				.path("/{id}").buildAndExpand(anuncio.idAnuncio()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -74,7 +75,7 @@ public class AnuncioController {
 		Anuncio anuncio = new Anuncio(id, usuario, modelo, anuncioDto.getTitulo(), anuncioDto.getDescricao(), anuncioDto.getAno(), anuncioDto.getValor(), anuncioDto.getDataCriacao(), anuncioDto.getBase64Imagem(), "", anuncioDto.getListAnuncioFotos());
 		anuncio = anuncioServicePort.save(anuncio);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(anuncio).toUri();
+				.path("/{id}").buildAndExpand(anuncio.idAnuncio()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	

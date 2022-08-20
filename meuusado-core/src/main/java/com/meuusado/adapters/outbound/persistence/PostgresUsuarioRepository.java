@@ -38,13 +38,13 @@ public class PostgresUsuarioRepository implements UsuarioRepositoryPort {
 	@Override
 	public Usuario findById(Long id) {
 		UsuarioEntity usuarioEntity = usuarioRepository.findById(id).orElse(null);
-		return modelMapper.map(usuarioEntity, Usuario.class);
+		return usuarioEntity.toDomain();
 	}
 
 	@Override
 	public Usuario save(Usuario usuario) {
 		UsuarioEntity usuarioEntity = modelMapper.map(usuario, UsuarioEntity.class);
-		return modelMapper.map(usuarioRepository.save(usuarioEntity), Usuario.class);
+		return usuarioRepository.save(usuarioEntity).toDomain();
 	}
 
 	@Override

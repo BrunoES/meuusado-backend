@@ -6,9 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.meuusado.application.domain.Modelo;
 
@@ -24,19 +23,21 @@ public class ModeloEntity {
 	@Column(name="NAME")
 	private String name;
 	
-	@ManyToOne
-	@JoinColumn(name="ID_MARCA")
+	@Column(name="ID_MARCA")
+	private Long idMarca;
+	
+	@Transient
 	private MarcaEntity marca;
 	
 	public ModeloEntity() {
 		super();
 	}
 
-	public ModeloEntity(Long idModelo, String name, MarcaEntity marca) {
+	public ModeloEntity(Long idModelo, String name, Long idMarca) {
 		super();
 		this.idModelo = idModelo;
 		this.name = name;
-		this.marca = marca;
+		this.idMarca = idMarca;
 	}
 	
 	public Long getIdModelo() {
@@ -55,6 +56,14 @@ public class ModeloEntity {
 		this.name = name;
 	}
 
+	public Long getIdMarca() {
+		return idMarca;
+	}
+
+	public void setIdMarca(Long idMarca) {
+		this.idMarca = idMarca;
+	}
+
 	public MarcaEntity getMarca() {
 		return marca;
 	}
@@ -62,7 +71,7 @@ public class ModeloEntity {
 	public void setMarca(MarcaEntity marca) {
 		this.marca = marca;
 	}
-	
+
 	public Modelo toDomain() {
 		return new Modelo(this.idModelo,
 				this.name,

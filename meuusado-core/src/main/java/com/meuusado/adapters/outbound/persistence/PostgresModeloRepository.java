@@ -1,5 +1,6 @@
 package com.meuusado.adapters.outbound.persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,25 +23,35 @@ public class PostgresModeloRepository implements ModeloRepositoryPort {
 	private SpringDataPostgresModeloRepository modeloRepository;
 	
 	@Autowired
+	private SpringDataPostgresMarcaRepository marcaRepository;
+	
+	@Autowired
     private ModelMapper modelMapper;
 	
 	@Override
 	public List<Modelo> findAll() {
-		//return modeloRepository.findAll().stream().map(x -> modelMapper.map(x, Modelo.class)).collect(Collectors.toList());
-		return modeloRepository.findAll().stream().map(x -> x.toDomain()).collect(Collectors.toList());
+		List<Modelo> listModelosDomain = new ArrayList<Modelo>();
+		
+		modeloRepository.findAll().forEach(modeloEntity -> {
+			modeloEntity = fillModelo(modeloEntity);
+			listModelosDomain.add(modeloEntity.toDomain());
+		});
+		
+		return listModelosDomain;
 	}
 
 	@Override
 	public Modelo findById(Long id) {
 		ModeloEntity modeloEntity = modeloRepository.findById(id).orElse(null);
-		//return modelMapper.map(modeloEntity, Modelo.class);
+		modeloEntity = fillModelo(modeloEntity);
 		return modeloEntity.toDomain();
 	}
 
 	@Override
 	public Modelo save(Modelo modelo) {
 		ModeloEntity modeloEntity = modelMapper.map(modelo, ModeloEntity.class);
-		return modelMapper.map(modeloRepository.save(modeloEntity), Modelo.class);
+		modeloEntity = fillModelo(modeloEntity);
+		return modeloEntity.toDomain();
 	}
 
 	@Override
@@ -68,8 +79,14 @@ public class PostgresModeloRepository implements ModeloRepositoryPort {
 		//return modeloRepository.findByMarca(marca).stream().map(x -> new Modelo(x.getIdModelo(), x.getName(), new Marca(x.getMarca().getIdMarca(), x.getMarca().getNome()))).collect(Collectors.toList());
 		
 		MarcaEntity marcaEntity = new MarcaEntity(marca.idMarca(), marca.nome());
-		return modeloRepository.findByMarca(marcaEntity).stream().map(x -> modelMapper.map(x, Modelo.class)).collect(Collectors.toList());
+		return modeloRepository.findByIdMarca(marcaEntity.getIdMarca()).stream().map(x -> modelMapper.map(x, Modelo.class)).collect(Collectors.toList());
 
+	}
+	
+	private ModeloEntity fillModelo(ModeloEntity modeloEntity) {
+		MarcaEntity marcaEntity = marcaRepository.findById(modeloEntity.getIdMarca()).orElse(null);
+		modeloEntity.setMarca(marcaEntity);
+		return modeloEntity;
 	}
 
 }

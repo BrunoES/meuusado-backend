@@ -7,8 +7,6 @@ import java.util.concurrent.ExecutionException;
 
 import com.meuusado.adapters.outbound.messaging.KafkaDispatcher;
 import com.meuusado.application.domain.Anuncio;
-import com.meuusado.application.domain.AnuncioFotos;
-import com.meuusado.application.ports.AnuncioFotosRepositoryPort;
 import com.meuusado.application.ports.AnuncioRepositoryPort;
 import com.meuusado.application.ports.AnuncioServicePort;
 
@@ -18,11 +16,8 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 	
 	private final AnuncioRepositoryPort anuncioRepository;
 	
-	private final AnuncioFotosRepositoryPort anuncioFotosRepositoryPort;
-	
-	public AnuncioServiceImpl(final AnuncioRepositoryPort anuncioRepository, AnuncioFotosRepositoryPort anuncioFotosRepositoryPort) {
+	public AnuncioServiceImpl(final AnuncioRepositoryPort anuncioRepository) {
 		this.anuncioRepository = anuncioRepository;
-		this.anuncioFotosRepositoryPort = anuncioFotosRepositoryPort;
 	}
 	
 	@Override
@@ -33,22 +28,13 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 	@Override
 	public Anuncio findById(Long id) {
 		Anuncio anuncio = anuncioRepository.findById(id);
-		List<AnuncioFotos> listAnuncioFotos = anuncioFotosRepositoryPort.findByAnuncio(anuncio);
-		//anuncio.setListAnuncioFotos(listAnuncioFotos);
 		return anuncio;
 	}
 
 	@Override
 	public Anuncio save(Anuncio anuncio) {
 		Anuncio anuncioReturn = anuncioRepository.save(anuncio);
-		List<AnuncioFotos> listAnuncioFotos = new ArrayList<AnuncioFotos>();
-		
-		anuncio.listAnuncioFotos().forEach(x -> {
-			AnuncioFotos anuncioFotos = new AnuncioFotos(x.idFoto(), anuncioReturn, x.base64Img());
-			listAnuncioFotos.add(anuncioFotosRepositoryPort.save(anuncioFotos));
-		});
-
-		submitValidation(anuncioReturn);
+		//submitValidation(anuncio);
 		return anuncioReturn;
 	}
 
