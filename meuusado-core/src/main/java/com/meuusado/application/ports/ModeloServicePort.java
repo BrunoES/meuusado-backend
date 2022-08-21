@@ -2,7 +2,6 @@ package com.meuusado.application.ports;
 
 import java.util.List;
 
-import com.meuusado.application.domain.Marca;
 import com.meuusado.application.domain.Modelo;
 
 public interface ModeloServicePort {
@@ -17,6 +16,6 @@ public interface ModeloServicePort {
 	
 	void delete(Modelo modelo);
 
-	List<Modelo> findByMarca(Marca marca);
+	List<Modelo> findByIdMarca(Long idMarca);
 	
 }

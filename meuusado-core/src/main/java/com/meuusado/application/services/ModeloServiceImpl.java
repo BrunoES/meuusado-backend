@@ -2,7 +2,6 @@ package com.meuusado.application.services;
 
 import java.util.List;
 
-import com.meuusado.application.domain.Marca;
 import com.meuusado.application.domain.Modelo;
 import com.meuusado.application.ports.ModeloRepositoryPort;
 import com.meuusado.application.ports.ModeloServicePort;
@@ -41,8 +40,8 @@ public class ModeloServiceImpl implements ModeloServicePort {
 	}
 
 	@Override
-	public List<Modelo> findByMarca(Marca marca) {
-		return modeloRepository.findByMarca(marca);
+	public List<Modelo> findByIdMarca(Long idMarca) {
+		return modeloRepository.findByIdMarca(idMarca);
 	}
 
 	

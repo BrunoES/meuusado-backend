@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,8 +44,7 @@ public class ModeloController {
 	
 	@RequestMapping(value="/marca/{idMarca}", method=RequestMethod.GET)
 	public ResponseEntity<List<ModeloDTO>> findByMarca(@PathVariable Long idMarca) {
-		Marca marca = marcaServicePort.findById(idMarca);
-		List<Modelo> list = modeloServicePort.findByMarca(marca);
+		List<Modelo> list = modeloServicePort.findByIdMarca(idMarca);
 		List<ModeloDTO> listDto = list.stream().map(obj -> new ModeloDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}

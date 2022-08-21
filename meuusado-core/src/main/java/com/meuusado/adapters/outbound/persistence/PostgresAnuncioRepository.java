@@ -59,6 +59,8 @@ public class PostgresAnuncioRepository implements AnuncioRepositoryPort {
 		anuncioEntity.setDescricao(anuncio.descricao());
 		anuncioEntity.setValor(anuncio.valor());
 		anuncioEntity.setAno(anuncio.ano());
+		anuncioEntity.setIdModelo(anuncio.modelo().idModelo());
+		anuncioEntity.setIdUsuario(anuncio.usuario().idUsuario());
 		anuncioEntity.setBase64ImgPrincMin(anuncio.base64ImgPrincMin());
 		
 		anuncioEntity = anuncioRepository.save(anuncioEntity);
