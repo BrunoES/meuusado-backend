@@ -39,19 +39,19 @@ public class PostgresAnuncioFotosRepository implements AnuncioFotosRepositoryPor
 	public List<AnuncioFotos> findByAnuncio(Anuncio anuncio) {
 		AnuncioEntity anuncioEntity = modelMapper.map(anuncio, AnuncioEntity.class);
 		List<AnuncioFotosEntity> listAnuncioFotosEntity = anuncioFotosRepository.findByIdAnuncio(anuncioEntity.getIdAnuncio());
-		return listAnuncioFotosEntity.stream().map(x -> modelMapper.map(x, AnuncioFotos.class)).collect(Collectors.toList());
+		return listAnuncioFotosEntity.stream().map(x -> x.toDomain()).collect(Collectors.toList());
 	}
 	
 	@Override
 	public List<AnuncioFotos> findByAnuncio(Long idAnuncio) {
 		List<AnuncioFotosEntity> listAnuncioFotosEntity = anuncioFotosRepository.findByIdAnuncio(idAnuncio);
-		return listAnuncioFotosEntity.stream().map(x -> modelMapper.map(x, AnuncioFotos.class)).collect(Collectors.toList());
+		return listAnuncioFotosEntity.stream().map(x -> x.toDomain()).collect(Collectors.toList());
 	}
 	
 	@Override
 	public AnuncioFotos save(AnuncioFotos veiculo) {
 		AnuncioFotosEntity anuncioFotosEntity = modelMapper.map(veiculo, AnuncioFotosEntity.class);
-		return modelMapper.map(anuncioFotosRepository.save(anuncioFotosEntity), AnuncioFotos.class);
+		return anuncioFotosEntity.toDomain();
 	}
 
 	@Override
