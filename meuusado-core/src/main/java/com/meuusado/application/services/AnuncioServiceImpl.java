@@ -34,7 +34,7 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 	@Override
 	public Anuncio save(Anuncio anuncio) {
 		Anuncio anuncioReturn = anuncioRepository.save(anuncio);
-		//submitValidation(anuncio);
+		submitValidation(anuncio);
 		return anuncioReturn;
 	}
 
