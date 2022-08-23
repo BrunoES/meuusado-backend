@@ -29,7 +29,7 @@ bin\windows\kafka-topics.bat --alter --zookeeper localhost:2181 --topic MEUUSADO
 * Listar grupos:
 bin/windows/kafka-consumer-groups.bat --all-groups --bootstrap-server localhost:9092 --describe
 
-#Observações importante:
+#Observações importantes:
 - Em um ambiente de produção, as configurações de diretórios dos arquivos server.properties(log.dirs) e zookeeper.properties (dataDir)
 devem ser configuradas para um diretório fixo, e não ficar como /tmp/.
 - Carro o Kafka se perca, limpar pastas tmp/zookeeper e tmp/kafka-logs
