@@ -19,6 +19,7 @@ import com.meuusado.application.domain.Anuncio;
 import com.meuusado.application.domain.AnuncioFotos;
 import com.meuusado.application.domain.Modelo;
 import com.meuusado.application.domain.Usuario;
+import com.meuusado.application.domain.enums.SituacaoAnuncio;
 import com.meuusado.application.ports.AnuncioServicePort;
 import com.meuusado.application.ports.ModeloServicePort;
 import com.meuusado.application.ports.UsuarioServicePort;
@@ -61,7 +62,7 @@ public class AnuncioController {
 		Modelo modelo = modeloServicePort.findById(anuncioDto.getIdModelo());
 		Usuario usuario = usuarioServicePort.findById(anuncioDto.getIdUsuario());
 		List<AnuncioFotos> listAnuncioFotos = anuncioDto.getListAnuncioFotosBase64().stream().map(x-> new AnuncioFotos(null, null, x)).collect(Collectors.toList());
-		Anuncio anuncio = new Anuncio(anuncioDto.getIdAnuncio(), usuario, modelo, anuncioDto.getTitulo(), anuncioDto.getDescricao(), anuncioDto.getAno(), anuncioDto.getValor(), anuncioDto.getDataCriacao(), anuncioDto.getBase64Imagem(), "", listAnuncioFotos); 
+		Anuncio anuncio = new Anuncio(anuncioDto.getIdAnuncio(), usuario, modelo, anuncioDto.getTitulo(), anuncioDto.getDescricao(), anuncioDto.getAno(), anuncioDto.getValor(), anuncioDto.getDataCriacao(), anuncioDto.getBase64Imagem(), "", listAnuncioFotos, SituacaoAnuncio.AGUARDANDO_APROVACAO); 
 		anuncio = anuncioServicePort.save(anuncio);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(anuncio.idAnuncio()).toUri();
@@ -72,7 +73,7 @@ public class AnuncioController {
 	public ResponseEntity<Anuncio> update(@RequestBody AnuncioDTO anuncioDto, @PathVariable Long id) {
 		Modelo modelo = modeloServicePort.findById(anuncioDto.getIdModelo());
 		Usuario usuario = usuarioServicePort.findById(anuncioDto.getIdUsuario());
-		Anuncio anuncio = new Anuncio(id, usuario, modelo, anuncioDto.getTitulo(), anuncioDto.getDescricao(), anuncioDto.getAno(), anuncioDto.getValor(), anuncioDto.getDataCriacao(), anuncioDto.getBase64Imagem(), "", anuncioDto.getListAnuncioFotos());
+		Anuncio anuncio = new Anuncio(id, usuario, modelo, anuncioDto.getTitulo(), anuncioDto.getDescricao(), anuncioDto.getAno(), anuncioDto.getValor(), anuncioDto.getDataCriacao(), anuncioDto.getBase64Imagem(), "", anuncioDto.getListAnuncioFotos(), anuncioDto.getSituacaoAnuncio());
 		anuncio = anuncioServicePort.save(anuncio);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(anuncio.idAnuncio()).toUri();

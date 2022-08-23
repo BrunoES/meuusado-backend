@@ -5,8 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.meuusado.application.domain.Anuncio;
 import com.meuusado.application.domain.AnuncioFotos;
+import com.meuusado.application.domain.enums.SituacaoAnuncio;
 
 public class AnuncioDTO implements Serializable {
 
@@ -31,6 +33,8 @@ public class AnuncioDTO implements Serializable {
 	//@NotNull
 	//@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataCriacao;
+	
+	private SituacaoAnuncio situacaoAnuncio;
 	
 	private String base64Imagem;
 	
@@ -99,6 +103,7 @@ public class AnuncioDTO implements Serializable {
 		this.setDataCriacao(anuncio.dataCriacao());
 		this.setBase64Imagem(anuncio.base64ImgPrincMin());
 		this.setListAnuncioFotos(anuncio.listAnuncioFotos());
+		this.setSituacaoAnuncio(anuncio.situacaoAnuncio());
 	}
 
 	public Long getIdAnuncio() {
@@ -195,6 +200,14 @@ public class AnuncioDTO implements Serializable {
 
 	public void setAno(int ano) {
 		this.ano = ano;
+	}
+
+	public SituacaoAnuncio getSituacaoAnuncio() {
+		return situacaoAnuncio;
+	}
+
+	public void setSituacaoAnuncio(SituacaoAnuncio situacaoAnuncio) {
+		this.situacaoAnuncio = situacaoAnuncio;
 	}
 
 }

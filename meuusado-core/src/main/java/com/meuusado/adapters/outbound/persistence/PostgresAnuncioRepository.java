@@ -13,6 +13,7 @@ import com.meuusado.application.domain.Anuncio;
 import com.meuusado.application.domain.AnuncioFotos;
 import com.meuusado.application.domain.Modelo;
 import com.meuusado.application.domain.Usuario;
+import com.meuusado.application.domain.enums.SituacaoAnuncio;
 import com.meuusado.application.ports.AnuncioRepositoryPort;
 
 @Component
@@ -62,6 +63,7 @@ public class PostgresAnuncioRepository implements AnuncioRepositoryPort {
 		anuncioEntity.setIdModelo(anuncio.modelo().idModelo());
 		anuncioEntity.setIdUsuario(anuncio.usuario().idUsuario());
 		anuncioEntity.setBase64ImgPrincMin(anuncio.base64ImgPrincMin());
+		anuncioEntity.setSituacaoAnuncio(anuncio.situacaoAnuncio().situacaoAnuncio);
 		
 		anuncioEntity = anuncioRepository.save(anuncioEntity);
 		
@@ -82,7 +84,7 @@ public class PostgresAnuncioRepository implements AnuncioRepositoryPort {
 		List<AnuncioFotos> listFotosAnuncio = anuncioFotosRepository.findByAnuncio(anuncioEntity.getIdAnuncio());
 		Modelo modelo = (anuncioEntity.getIdModelo() != null ? modeloRepository.findById(anuncioEntity.getIdModelo()) : null);
 		Usuario usuario = (anuncioEntity.getIdUsuario() != null ? usuarioRepository.findById(anuncioEntity.getIdUsuario()) : null);
-		Anuncio anuncio = new Anuncio(anuncioEntity.getIdAnuncio(), usuario, modelo, anuncioEntity.getTitulo(), anuncioEntity.getDescricao(), anuncioEntity.getAno(), anuncioEntity.getValor(), anuncioEntity.getDataCriacao(), anuncioEntity.getBase64ImgPrincMin(), anuncioEntity.getPathImagem(), listFotosAnuncio); 
+		Anuncio anuncio = new Anuncio(anuncioEntity.getIdAnuncio(), usuario, modelo, anuncioEntity.getTitulo(), anuncioEntity.getDescricao(), anuncioEntity.getAno(), anuncioEntity.getValor(), anuncioEntity.getDataCriacao(), anuncioEntity.getBase64ImgPrincMin(), anuncioEntity.getPathImagem(), listFotosAnuncio, SituacaoAnuncio.valueOf(anuncioEntity.getSituacaoAnuncio())); 
 		return anuncio;
 	}
 

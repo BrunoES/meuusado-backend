@@ -9,15 +9,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.meuusado.application.domain.Anuncio;
 import com.meuusado.application.domain.AnuncioFotos;
+import com.meuusado.application.domain.enums.SituacaoAnuncio;
 
 @Entity
 @Table(name = "MU_ANUNCIO")
@@ -65,6 +64,9 @@ public class AnuncioEntity {
 
 	@Transient
 	private List<AnuncioFotosEntity> listAnuncioFotos;
+
+	@Column(name = "SITUACAO_ANUNCIO")
+	private int situacaoAnuncio;
 	
 	public AnuncioEntity() {
 		super();
@@ -199,6 +201,14 @@ public class AnuncioEntity {
 		this.listAnuncioFotos = listAnuncioFotos;
 	}
 	
+	public int getSituacaoAnuncio() {
+		return situacaoAnuncio;
+	}
+
+	public void setSituacaoAnuncio(int situacaoAnuncio) {
+		this.situacaoAnuncio = situacaoAnuncio;
+	}
+
 	public Anuncio toDomain() {
 		List<AnuncioFotos> listAnuncioFotosDomain = null;
 		if(listAnuncioFotos != null) {
@@ -214,7 +224,8 @@ public class AnuncioEntity {
 				this.dataCriacao,
 				this.base64ImgPrincMin,
 				this.pathImagem,
-				listAnuncioFotosDomain);
+				listAnuncioFotosDomain,
+				SituacaoAnuncio.valueOf(situacaoAnuncio));
 	}
 	
 }
