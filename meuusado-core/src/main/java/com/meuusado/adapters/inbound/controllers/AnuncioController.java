@@ -80,6 +80,14 @@ public class AnuncioController {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@RequestMapping(value="/aprovar/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Anuncio> aprove(@RequestBody AnuncioDTO anuncioDto, @PathVariable Long id) {
+		Anuncio anuncio = anuncioServicePort.aprove(id);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(anuncio.idAnuncio()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
+	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		Anuncio anuncio = anuncioServicePort.findById(id);

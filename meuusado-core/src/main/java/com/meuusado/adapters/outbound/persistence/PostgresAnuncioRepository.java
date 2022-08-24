@@ -56,6 +56,7 @@ public class PostgresAnuncioRepository implements AnuncioRepositoryPort {
 	public Anuncio save(Anuncio anuncio) {
 		AnuncioEntity anuncioEntity = new AnuncioEntity();
 		
+		anuncioEntity.setIdAnuncio(anuncio.idAnuncio());
 		anuncioEntity.setTitulo(anuncio.titulo());
 		anuncioEntity.setDescricao(anuncio.descricao());
 		anuncioEntity.setValor(anuncio.valor());

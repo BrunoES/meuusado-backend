@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutionException;
 
 import com.meuusado.adapters.outbound.messaging.KafkaDispatcher;
 import com.meuusado.application.domain.Anuncio;
+import com.meuusado.application.domain.enums.SituacaoAnuncio;
 import com.meuusado.application.ports.AnuncioRepositoryPort;
 import com.meuusado.application.ports.AnuncioServicePort;
 
@@ -34,7 +35,6 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 	@Override
 	public Anuncio save(Anuncio anuncio) {
 		Anuncio anuncioReturn = anuncioRepository.save(anuncio);
-		submitValidation(anuncio);
 		return anuncioReturn;
 	}
 
@@ -81,13 +81,22 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 		return resultList;
 	}
 	
-	private void submitValidation(Anuncio anuncio) {
+	private void submitMongoDBDatabaseQueue(Anuncio anuncio) {
 		String key = UUID.randomUUID().toString();
 		try {
 			anuncioDispatcher.send("MEUUSADO.ANNOUNCEMENT-VALIDATION", key, anuncio);
 		} catch (InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public Anuncio aprove(Long idAnuncio) {
+		Anuncio anuncio = anuncioRepository.findById(idAnuncio);
+		Anuncio anuncioAprovado = new Anuncio(anuncio.idAnuncio(), anuncio.usuario(), anuncio.modelo(), anuncio.titulo(), anuncio.descricao(), anuncio.ano(), anuncio.valor(), anuncio.dataCriacao(), anuncio.base64ImgPrincMin(), anuncio.pathImagem(), anuncio.listAnuncioFotos(), SituacaoAnuncio.APROVADO);
+		anuncioAprovado = anuncioRepository.save(anuncioAprovado);
+		submitMongoDBDatabaseQueue(anuncio);
+		return anuncioAprovado;
 	}
 
 	

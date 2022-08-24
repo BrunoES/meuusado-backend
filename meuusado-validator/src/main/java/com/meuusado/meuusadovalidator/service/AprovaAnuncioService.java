@@ -28,7 +28,7 @@ public class AprovaAnuncioService {
 	}
 	
 	private void parse(ConsumerRecord<String, AnuncioDTO> record) {
-		System.out.println("LOG] Toppic " + record.topic());
+		System.out.println("Aprovando anúncio " + record.topic());
 		System.out.println(record.key());
 		System.out.println(record.value());
 		System.out.println(record.partition());

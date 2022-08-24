@@ -16,6 +16,8 @@ public interface AnuncioServicePort {
 	
 	Anuncio update(Anuncio anuncio);
 	
+	Anuncio aprove(Long idAnuncio);
+	
 	void delete(Anuncio anuncio);
 	
 }
