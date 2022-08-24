@@ -50,6 +50,13 @@ public class AnuncioController {
 		return ResponseEntity.ok().body(anuncioDto);
 	}
 	
+	@RequestMapping(value="/situacao/{idSituacao}", method=RequestMethod.GET)
+	public ResponseEntity<List<AnuncioResumidoDTO>> findBySituacaoAnuncio(@PathVariable int idSituacao) {
+		List<Anuncio> list = anuncioServicePort.findBySituacaoAnuncio(idSituacao);
+		List<AnuncioResumidoDTO> listDto = list.stream().filter(x -> x.base64ImgPrincMin() != null).map(obj -> new AnuncioResumidoDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
+	}
+	
 	@RequestMapping(value="/filter/{query}", method=RequestMethod.GET)
 	public ResponseEntity<List<AnuncioResumidoDTO>> find(@PathVariable String query) {
 		List<Anuncio> list = anuncioServicePort.findByQuery(query);

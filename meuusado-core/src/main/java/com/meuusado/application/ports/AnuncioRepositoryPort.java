@@ -13,5 +13,7 @@ public interface AnuncioRepositoryPort {
 	Anuncio save(Anuncio anuncio);
 	
 	void delete(Anuncio anuncio);
+
+	List<Anuncio> findBySituacaoAnuncio(int idSituacao);
 	
 }

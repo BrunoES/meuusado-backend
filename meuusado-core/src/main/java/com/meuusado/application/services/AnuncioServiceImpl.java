@@ -99,5 +99,10 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 		return anuncioAprovado;
 	}
 
+	@Override
+	public List<Anuncio> findBySituacaoAnuncio(int idSituacao) {
+		return anuncioRepository.findBySituacaoAnuncio(idSituacao);
+	}
+
 	
 }

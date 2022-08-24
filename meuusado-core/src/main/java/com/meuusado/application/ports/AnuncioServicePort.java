@@ -19,5 +19,7 @@ public interface AnuncioServicePort {
 	Anuncio aprove(Long idAnuncio);
 	
 	void delete(Anuncio anuncio);
+
+	List<Anuncio> findBySituacaoAnuncio(int idSituacao);
 	
 }

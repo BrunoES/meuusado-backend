@@ -53,6 +53,17 @@ public class PostgresAnuncioRepository implements AnuncioRepositoryPort {
 	}
 
 	@Override
+	public List<Anuncio> findBySituacaoAnuncio(int idSituacao) {
+		List<Anuncio> listAnunciosDomain = new ArrayList<Anuncio>();
+		
+		anuncioRepository.findBySituacaoAnuncio(idSituacao).forEach(anuncioEntity -> {
+			listAnunciosDomain.add(fillAnuncio(anuncioEntity));
+		});
+		
+		return listAnunciosDomain;
+	}
+	
+	@Override
 	public Anuncio save(Anuncio anuncio) {
 		AnuncioEntity anuncioEntity = new AnuncioEntity();
 		
