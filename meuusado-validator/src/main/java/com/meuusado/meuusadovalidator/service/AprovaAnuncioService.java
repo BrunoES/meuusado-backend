@@ -7,13 +7,15 @@ import java.util.regex.Pattern;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 import com.meuusado.meuusadovalidator.dto.AnuncioDTO;
+import com.meuusado.meuusadovalidator.persistence.MongoDBAnuncioRepository;
 
 @Service
 public class AprovaAnuncioService {
+	
+	private MongoDBAnuncioRepository mongoDBAnuncioRepository = new MongoDBAnuncioRepository();
 	
 	public static void consume() throws IOException {
 		AprovaAnuncioService aprovaAnuncioService = new AprovaAnuncioService();
@@ -33,5 +35,9 @@ public class AprovaAnuncioService {
 		System.out.println(record.value());
 		System.out.println(record.partition());
 		System.out.println(record.offset());
+		
+		AnuncioDTO anuncioDto = new AnuncioDTO(null, record.value().getIdAnuncio(), record.value().getIdUsuario(), record.value().getIdModelo(), record.value().getNomeModelo(), record.value().getTitulo(), record.value().getDescricao(), record.value().getAno(), record.value().getValor(), record.value().getDataCriacao(), record.value().getBase64Imagem(), record.value().getListAnuncioFotosBase64());
+		
+		mongoDBAnuncioRepository.salvar(anuncioDto);
 	}
 }
