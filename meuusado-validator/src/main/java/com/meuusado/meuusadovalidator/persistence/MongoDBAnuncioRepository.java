@@ -22,7 +22,7 @@ public class MongoDBAnuncioRepository {
 
 	private MongoClient cliente;
 	private MongoDatabase bancaDeDados;
-	
+
 	private void criarConexao() {
 		Codec<Document> codec = MongoClient.getDefaultCodecRegistry().get(Document.class);
 		
@@ -32,13 +32,16 @@ public class MongoDBAnuncioRepository {
 				CodecRegistries.fromCodecs(anuncioDtoCodec));
 		
 		MongoClientOptions opcoes = MongoClientOptions.builder().codecRegistry(registro).build();
-		
-		this.cliente = new MongoClient("localhost:27017", opcoes);
-		this.bancaDeDados = cliente.getDatabase("test");
-		
+
+		try {
+			this.cliente = new MongoClient("localhost:27017", opcoes);
+			this.bancaDeDados = cliente.getDatabase("test");
+		} catch(Exception e) {
+			System.out.println(e.getStackTrace());
+		}
 	}
 	
-	public void salvar(AnuncioDTO anuncioDto){
+	public void salvar(AnuncioDTO anuncioDto) {
 		
 		criarConexao();
 		MongoCollection<AnuncioDTO> anuncioDtos = this.bancaDeDados.getCollection("anuncioDtos", AnuncioDTO.class);

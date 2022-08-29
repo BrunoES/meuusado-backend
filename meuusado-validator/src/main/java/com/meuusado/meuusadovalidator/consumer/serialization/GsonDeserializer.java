@@ -9,7 +9,7 @@ import com.google.gson.GsonBuilder;
 
 public class GsonDeserializer<T> implements Deserializer<T> {
 	
-	public static final String TYPE_CONFIG = "com.estudos.kafka";
+	public static final String TYPE_CONFIG = "com.meuusado.meuusadovalidator.dto";
 	private final Gson gson = new GsonBuilder().create();
 	private Class<T> type;
 	

@@ -22,7 +22,7 @@ public class AprovaAnuncioService {
 		try(KafkaService<AnuncioDTO> service = new KafkaService(AprovaAnuncioService.class.getSimpleName(),
 				Pattern.compile("MEUUSADO.*"),
 				aprovaAnuncioService::parse,
-				String.class,
+				AnuncioDTO.class,
 				Map.of(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName())
 				)){
 			service.run();
@@ -36,8 +36,11 @@ public class AprovaAnuncioService {
 		System.out.println(record.partition());
 		System.out.println(record.offset());
 		
-		AnuncioDTO anuncioDto = new AnuncioDTO(null, record.value().getIdAnuncio(), record.value().getIdUsuario(), record.value().getIdModelo(), record.value().getNomeModelo(), record.value().getTitulo(), record.value().getDescricao(), record.value().getAno(), record.value().getValor(), record.value().getDataCriacao(), record.value().getBase64Imagem(), record.value().getListAnuncioFotosBase64());
+		//Object obj = record.value();
+		//System.out.println(obj.getClass().getCanonicalName());
 		
-		mongoDBAnuncioRepository.salvar(anuncioDto);
+		//AnuncioDTO anuncioDto = new AnuncioDTO(null, record.value().getIdAnuncio(), record.value().getIdUsuario(), record.value().getIdModelo(), record.value().getNomeModelo(), record.value().getTitulo(), record.value().getDescricao(), record.value().getAno(), record.value().getValor(), record.value().getDataCriacao(), record.value().getBase64Imagem(), record.value().getListAnuncioFotosBase64());
+		
+		mongoDBAnuncioRepository.salvar(record.value());
 	}
 }
