@@ -34,7 +34,7 @@ public class MongoDBAnuncioRepository {
 		MongoClientOptions opcoes = MongoClientOptions.builder().codecRegistry(registro).build();
 
 		try {
-			this.cliente = new MongoClient("localhost:27017", opcoes);
+			this.cliente = new MongoClient("host.docker.internal:27017", opcoes);
 			this.bancaDeDados = cliente.getDatabase("test");
 		} catch(Exception e) {
 			System.out.println(e.getStackTrace());

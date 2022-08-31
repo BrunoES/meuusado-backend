@@ -33,3 +33,11 @@ bin/windows/kafka-consumer-groups.bat --all-groups --bootstrap-server localhost:
 - Em um ambiente de produção, as configurações de diretórios dos arquivos server.properties(log.dirs) e zookeeper.properties (dataDir)
 devem ser configuradas para um diretório fixo, e não ficar como /tmp/.
 - Carro o Kafka se perca, limpar pastas tmp/zookeeper e tmp/kafka-logs
+
+**Docker start**
+* Exemplos:
+
+docker run --name eureka-server-0 -p 9090:9090 -t <id-imagem>
+docker run --name meuusado-core-0 -p 9003:9003 -t <id-imagem>
+docker run --name meuusado-validator-0 -p 9001:9001 -t <id-imagem>
+docker run --name meuusado-gateway-0 -p 9000:9000 -t <id-imagem>
