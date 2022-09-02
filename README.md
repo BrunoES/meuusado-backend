@@ -39,6 +39,7 @@ devem ser configuradas para um diretório fixo, e não ficar como /tmp/.
 
 * Infa:
 - docker run --name postgres-db -p 5432:5432 -t id-imagem
+- docker run --name mongo-db -p 27017:27017 -d mongo
 
 * Modules:
 - docker run --name eureka-server-0 -p 9090:9090 -t id-imagem
