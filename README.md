@@ -37,6 +37,10 @@ devem ser configuradas para um diretório fixo, e não ficar como /tmp/.
 **Docker start**
 * Exemplos:
 
+* Infa:
+- docker run --name postgres-db -p 5432:5432 -t id-imagem
+
+* Modules:
 - docker run --name eureka-server-0 -p 9090:9090 -t id-imagem
 - docker run --name meuusado-core-0 -p 9003:9003 -t id-imagem
 - docker run --name meuusado-validator-0 -p 9001:9001 -t id-imagem
