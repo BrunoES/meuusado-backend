@@ -5,8 +5,10 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -17,7 +19,8 @@ import com.meuusado.application.domain.AnuncioFotos;
 public class AnuncioFotosEntity {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SGMU_ANUNCIO_FOTOS")
+    @SequenceGenerator(name =  "SGMU_ANUNCIO_FOTOS",sequenceName = "SMU_ANUNCIO_FOTOS")
 	@Column(name="ID_FOTO")
 	private Long idFoto;
 	

@@ -3,7 +3,9 @@ package com.meuusado.adapters.outbound.persistence.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.meuusado.application.domain.Marca;
@@ -13,7 +15,8 @@ import com.meuusado.application.domain.Marca;
 public class MarcaEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SGMU_MARCA")
+    @SequenceGenerator(name =  "SGMU_MARCA",sequenceName = "SMU_MARCA")
 	@Column(name="ID_MARCA")
 	private Long idMarca;
 	

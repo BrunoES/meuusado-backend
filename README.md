@@ -4,30 +4,30 @@
 bin\zkServer.cmd
 
 * Subindo Kafka:
-bin\windows\kafka-server-start.bat config/server.properties
+kafka-server-start.sh config/server.properties
 
 * Criando Tópico:
-bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic MEUUSADO.ANNOUNCEMENT-VALIDATION
+kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic MEUUSADO.ANNOUNCEMENT-VALIDATION
 
 * Listando Tópicos existentes:
-bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
-bin\windows\kafka-topics.bat --describe --bootstrap-server localhost:9092 --describe
+- kafka-topics.sh --list --bootstrap-server localhost:9092
+- kafka-topics.sh --describe --bootstrap-server localhost:9092 --describe
 
 * Criando Producer:
-bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic MEUUSADO.ANNOUNCEMENT-VALIDATION
+kafka-console-producer.sh --broker-list localhost:9092 --topic MEUUSADO.ANNOUNCEMENT-VALIDATION
 
 * Criando Consumer para ler apenas novas mensagens:
-bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic MEUUSADO.ANNOUNCEMENT-VALIDATION
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic MEUUSADO.ANNOUNCEMENT-VALIDATION
 
 * Criando Consumer para ler todas mensagens desde o início:
-bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic MEUUSADO.ANNOUNCEMENT-VALIDATION --from-beginning
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic MEUUSADO.ANNOUNCEMENT-VALIDATION --from-beginning
 
 * Configurar partições de um tópico:
-bin\windows\kafka-topics.bat --alter --zookeeper localhost:2181 --topic MEUUSADO.ANNOUNCEMENT-VALIDATION --partitions 3
+kafka-topics.sh --alter --zookeeper localhost:2181 --topic MEUUSADO.ANNOUNCEMENT-VALIDATION --partitions 3
  *** --partitions deve ser equivalente ao 'num.partitions' configurado em server.properties da instalação do Kafka.
 
 * Listar grupos:
-bin/windows/kafka-consumer-groups.bat --all-groups --bootstrap-server localhost:9092 --describe
+bin/windows/kafka-consumer-groups.sh --all-groups --bootstrap-server localhost:9092 --describe
 
 #Observações importantes:
 - Em um ambiente de produção, as configurações de diretórios dos arquivos server.properties(log.dirs) e zookeeper.properties (dataDir)
