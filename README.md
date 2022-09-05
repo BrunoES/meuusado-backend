@@ -29,6 +29,11 @@ kafka-topics.sh --alter --zookeeper localhost:2181 --topic MEUUSADO.ANNOUNCEMENT
 * Listar grupos:
 bin/windows/kafka-consumer-groups.sh --all-groups --bootstrap-server localhost:9092 --describe
 
+* Liberando containers para ler Kafka:
+ docker network connect kafka_default meuusado-core-0
+ docker network connect kafka_default meuusado-validator-0
+
+
 #Observações importantes:
 - Em um ambiente de produção, as configurações de diretórios dos arquivos server.properties(log.dirs) e zookeeper.properties (dataDir)
 devem ser configuradas para um diretório fixo, e não ficar como /tmp/.
