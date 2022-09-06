@@ -1,0 +1,80 @@
+version: "2"
+
+services:
+  postgres-db:
+    image: postgres-db
+    ports:
+      - "5432:5432"
+    container_name: postgres-meuusado-core-db
+  mongo-db:
+    image: mongo
+    ports:
+      - "27017:27017"
+    container_name: mongo-meuusado-searcher-db
+  zookeeper:
+    image: docker.io/bitnami/zookeeper:3.8
+    ports:
+      - "2181:2181"
+    volumes:
+      - "zookeeper_data:/bitnami"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+  kafka:
+    image: docker.io/bitnami/kafka:3.2
+    ports:
+      - "9092:9092"
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+  eureka-server:
+    image: eureka-server
+    ports:
+      - "9090:9090"
+    container_name: eureka-server-0
+  meuusado-gateway:
+    image: meuusado-gateway
+    ports:
+      - "9000:9000"
+    depends_on:
+      - eureka-server
+    container_name: meuusado-gateway-0
+  meuusado-core:
+    image: meuusado-core
+    ports:
+      - "9003:9003"
+    environment:
+      - SPRING_DATASOURCE_PASSWORD=1234
+    depends_on:
+      - eureka-server
+      - postgres-db
+      - kafka
+    container_name: meuusado-core-0
+  meuusado-validator:
+    image: meuusado-validator
+    ports:
+      - "9001:9001"
+    depends_on:
+      - eureka-server
+      - mongo-db
+      - kafka
+    container_name: meuusado-validator-0
+  meuusado-searcher:
+    image: meuusado-searcher
+    ports:
+      - "9002:9002"
+    environment:
+      - SPRING_DATASOURCE_PASSWORD=1234
+    depends_on:
+      - eureka-server
+      - mongo-db
+    container_name: meuusado-searcher-0
+
+volumes:
+  zookeeper_data:
+    driver: local
+  kafka_data:
+    driver: local
