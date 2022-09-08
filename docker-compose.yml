@@ -44,8 +44,8 @@ services:
     container_name: meuusado-gateway-0
   meuusado-core:
     image: meuusado-core
-    ports:
-      - "9100-9199:9100-9199"
+    #ports:
+    #  - "9100-9199:9100-9199"
     environment:
       - SPRING_DATASOURCE_PASSWORD=1234
     depends_on:
@@ -53,28 +53,28 @@ services:
       - meuusado-gateway
       - postgres-db
       - kafka
-    container_name: meuusado-core-0
+    #container_name: meuusado-core-0
   meuusado-validator:
     image: meuusado-validator
-    ports:
-      - "9200-9299:9200-9299"
+    #ports:
+    #  - "9200-9299:9200-9299"
     depends_on:
       - eureka-server
       - meuusado-gateway
       - mongo-db
       - kafka
-    container_name: meuusado-validator-0
+    #container_name: meuusado-validator-0
   meuusado-searcher:
     image: meuusado-searcher
-    ports:
-      - "9300-9399:9300-9399"
+    #ports:
+    #  - "9300-9399:9300-9399"
     environment:
       - SPRING_DATASOURCE_PASSWORD=1234
     depends_on:
       - eureka-server
       - meuusado-gateway
       - mongo-db
-    container_name: meuusado-searcher-0
+    #container_name: meuusado-searcher-0
 
 volumes:
   zookeeper_data:
