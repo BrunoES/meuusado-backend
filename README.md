@@ -51,3 +51,6 @@ devem ser configuradas para um diretório fixo, e não ficar como /tmp/.
 - docker run --name meuusado-core-0 -p 9003:9003 -t id-imagem
 - docker run --name meuusado-validator-0 -p 9001:9001 -t id-imagem
 - docker run --name meuusado-gateway-0 -p 9000:9000 -t id-imagem
+
+**Docker compose**
+docker-compose up --scale meuusado-core=2 --scale meuusado-validator=2 --scale meuusado-searcher=5
