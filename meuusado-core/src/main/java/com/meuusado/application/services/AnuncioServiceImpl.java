@@ -5,20 +5,21 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
-import com.meuusado.adapters.outbound.messaging.KafkaDispatcher;
 import com.meuusado.application.domain.Anuncio;
 import com.meuusado.application.domain.enums.SituacaoAnuncio;
 import com.meuusado.application.ports.AnuncioRepositoryPort;
 import com.meuusado.application.ports.AnuncioServicePort;
+import com.meuusado.application.ports.MessagingServicePort;
 
 public class AnuncioServiceImpl implements AnuncioServicePort {
 
-	private static KafkaDispatcher<Anuncio> anuncioDispatcher = new KafkaDispatcher<>();
-	
 	private final AnuncioRepositoryPort anuncioRepository;
 	
-	public AnuncioServiceImpl(final AnuncioRepositoryPort anuncioRepository) {
+	private MessagingServicePort<Anuncio> messagingService;
+	
+	public AnuncioServiceImpl(final AnuncioRepositoryPort anuncioRepository, MessagingServicePort<Anuncio> messagingService) {
 		this.anuncioRepository = anuncioRepository;
+		this.messagingService = messagingService;
 	}
 	
 	@Override
@@ -84,7 +85,7 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 	private void submitMongoDBDatabaseQueue(Anuncio anuncio) {
 		String key = UUID.randomUUID().toString();
 		try {
-			anuncioDispatcher.send("MEUUSADO.ANNOUNCEMENT-VALIDATION", key, anuncio);
+			messagingService.send("MEUUSADO.ANNOUNCEMENT-VALIDATION", key, anuncio);
 		} catch (InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}

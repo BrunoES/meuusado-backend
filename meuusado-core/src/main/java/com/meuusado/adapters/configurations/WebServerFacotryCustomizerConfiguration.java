@@ -3,9 +3,12 @@ package com.meuusado.adapters.configurations;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.util.SocketUtils;
 
+/*
+ * Alternative way to provide random ports to spring applications.
+ * It's is just an backup code, non functional.
+ */
 public class WebServerFacotryCustomizerConfiguration implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
 
     @Value("${port.number.min:9100}")

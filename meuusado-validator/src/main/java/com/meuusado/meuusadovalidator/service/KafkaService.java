@@ -3,7 +3,6 @@ package com.meuusado.meuusadovalidator.service;
 import java.io.Closeable;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
@@ -15,32 +14,33 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import com.meuusado.meuusadovalidator.consumer.ConsumerFunction;
 import com.meuusado.meuusadovalidator.consumer.serialization.GsonDeserializer;
 
+@Component
 public class KafkaService<T> implements Closeable {
 
-	private final KafkaConsumer<String, T> consumer;
-	private final ConsumerFunction<T> parse;
+	@Value("${kafka.address:localhost:9092}")
+	private String kafkaAdress;
+	
+	private KafkaConsumer<String, T> consumer;
+	private ConsumerFunction<T> parse;
 	private ConsumerRecords<String, T> records;
 	
-	KafkaService(String groupId, ConsumerFunction<T> parse, Class<T> type, Map<String, String> props) {
-		this.parse = parse;
-		this.consumer = new KafkaConsumer<>(properties(groupId, type, props));	
-	}
-	
-	KafkaService(String groupId, String topic, ConsumerFunction<T> parse, Class<T> type, Map<String, String> props) {
-		this(groupId, parse, type, props);
-		consumer.subscribe(Collections.singletonList(topic));
-	}
-	
-	KafkaService(String groupId, Pattern topic, ConsumerFunction<T> parse,Class<T> type, Map<String, String> props) {
-		this(groupId, parse, type, props);
-		consumer.subscribe(topic);
+	public KafkaService() {
+		super();
 	}
 
-	void run() {
+	public void configure(String groupId, Pattern topic, ConsumerFunction<T> parse, Class<T> type, Map<String, String> props) {
+		this.parse = parse;
+		this.consumer = new KafkaConsumer<>(properties(groupId, type, props));	
+		consumer.subscribe(topic);
+	}
+	
+	public void run() {
 		while(true) {
 			records = consumer.poll(Duration.ofMillis(100));
 			
@@ -58,7 +58,7 @@ public class KafkaService<T> implements Closeable {
 	private Properties properties(String groupId, Class<T> type, Map<String, String> props) {
 		Properties properties = new Properties();
 		
-		properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "host.docker.internal:9092");
+		properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaAdress);
 		properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 		//properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, props.get(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG));
 		properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, GsonDeserializer.class.getCanonicalName());

@@ -8,6 +8,8 @@ import org.bson.codecs.Codec;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import com.meuusado.meuusadovalidator.dto.AnuncioDTO;
 import com.meuusado.meuusadovalidator.persistence.codecs.AnuncioCodec;
@@ -18,8 +20,12 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 
+@Component
 public class MongoDBAnuncioRepository {
 
+	@Value("${mongo-db.address:localhost:27017}")
+	private String mongoAdress;
+	
 	private MongoClient cliente;
 	private MongoDatabase bancaDeDados;
 
@@ -34,7 +40,7 @@ public class MongoDBAnuncioRepository {
 		MongoClientOptions opcoes = MongoClientOptions.builder().codecRegistry(registro).build();
 
 		try {
-			this.cliente = new MongoClient("host.docker.internal:27017", opcoes);
+			this.cliente = new MongoClient(mongoAdress, opcoes);
 			this.bancaDeDados = cliente.getDatabase("test");
 		} catch(Exception e) {
 			System.out.println(e.getStackTrace());

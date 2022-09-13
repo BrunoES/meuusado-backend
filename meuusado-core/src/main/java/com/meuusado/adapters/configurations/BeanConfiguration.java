@@ -1,7 +1,11 @@
 package com.meuusado.adapters.configurations;
 
+import com.meuusado.application.domain.Anuncio;
 import com.meuusado.application.ports.AnuncioRepositoryPort;
+import com.meuusado.application.ports.MessagingServicePort;
+
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +18,7 @@ import com.meuusado.adapters.outbound.persistence.PostgresVeiculoRepository;
 import com.meuusado.application.services.AnuncioServiceImpl;
 import com.meuusado.application.services.LoginServiceImpl;
 import com.meuusado.application.services.MarcaServiceImpl;
+import com.meuusado.application.services.MessagingServiceImpl;
 import com.meuusado.application.services.ModeloServiceImpl;
 import com.meuusado.application.services.UsuarioServiceImpl;
 import com.meuusado.application.services.VeiculoServiceImpl;
@@ -22,9 +27,12 @@ import com.meuusado.application.services.VeiculoServiceImpl;
 @ComponentScan(basePackageClasses = MeuusadoApplication.class)
 public class BeanConfiguration {
 
+	@Value("${kafka.address:localhost:9092}")
+	private String kafkaAddress;
+	
     @Bean
-    public AnuncioServiceImpl anuncioServiceImpl(AnuncioRepositoryPort anuncioRepositoryPort) {
-        return new AnuncioServiceImpl(anuncioRepositoryPort);
+    public AnuncioServiceImpl anuncioServiceImpl(AnuncioRepositoryPort anuncioRepositoryPort, MessagingServicePort<Anuncio> messagingServicePort) {
+        return new AnuncioServiceImpl(anuncioRepositoryPort, messagingServicePort);
     }
     
     @Bean
@@ -51,9 +59,15 @@ public class BeanConfiguration {
     public LoginServiceImpl loginServiceImpl(PostgresUsuarioRepository repository) {
         return new LoginServiceImpl(repository);
     }
+
+    @Bean
+    public MessagingServiceImpl<Anuncio> messagingServiceImpl() {
+    	return new MessagingServiceImpl<Anuncio>(kafkaAddress);
+    }
     
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
+    
 }
