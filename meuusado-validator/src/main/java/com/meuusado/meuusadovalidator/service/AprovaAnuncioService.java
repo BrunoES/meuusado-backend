@@ -1,6 +1,5 @@
 package com.meuusado.meuusadovalidator.service;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -24,7 +23,6 @@ public class AprovaAnuncioService {
 	@Autowired
 	private MongoDBAnuncioRepository mongoDBAnuncioRepository;
 	
-	@PostConstruct
 	public void consume() {
 		try {
 			kafkaService.configure(AprovaAnuncioService.class.getSimpleName(),
