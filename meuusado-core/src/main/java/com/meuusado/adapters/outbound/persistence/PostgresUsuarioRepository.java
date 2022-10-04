@@ -24,14 +24,12 @@ public class PostgresUsuarioRepository implements UsuarioRepositoryPort {
 	
 	@Override
 	public List<Usuario> findAll() {
-		//return usuarioRepository.findAll().stream().map(x -> modelMapper.map(x, Usuario.class)).collect(Collectors.toList());
 		return usuarioRepository.findAll().stream().map(x -> x.toDomain()).collect(Collectors.toList());
 	}
 
 	@Override
 	public Usuario findByEmail(String email) {
 		UsuarioEntity usuarioEntity = usuarioRepository.findByEmail(email); 
-		//return modelMapper.map(usuarioEntity, Usuario.class);
 		return usuarioEntity.toDomain();
 	}
 	

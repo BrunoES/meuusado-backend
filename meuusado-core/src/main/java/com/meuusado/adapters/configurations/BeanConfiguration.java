@@ -18,7 +18,6 @@ import com.meuusado.adapters.outbound.persistence.PostgresModeloRepository;
 import com.meuusado.adapters.outbound.persistence.PostgresUsuarioRepository;
 import com.meuusado.adapters.outbound.persistence.PostgresVeiculoRepository;
 import com.meuusado.application.services.AnuncioServiceImpl;
-import com.meuusado.application.services.LoginServiceImpl;
 import com.meuusado.application.services.MarcaServiceImpl;
 import com.meuusado.application.services.MessagingServiceImpl;
 import com.meuusado.application.services.ModeloServiceImpl;
@@ -55,11 +54,6 @@ public class BeanConfiguration {
     @Bean
     public VeiculoServiceImpl veiculoServiceImpl(PostgresVeiculoRepository repository) {
         return new VeiculoServiceImpl(repository);
-    }
-
-    @Bean
-    public LoginServiceImpl loginServiceImpl(PostgresUsuarioRepository repository) {
-        return new LoginServiceImpl(repository);
     }
 
     @Bean
