@@ -27,7 +27,7 @@ import com.meuusado.application.services.VeiculoServiceImpl;
 @Configuration
 @ComponentScan(basePackageClasses = MeuusadoApplication.class)
 public class BeanConfiguration {
-
+	
 	@Value("${kafka.address:localhost:9092}")
 	private String kafkaAddress;
 	

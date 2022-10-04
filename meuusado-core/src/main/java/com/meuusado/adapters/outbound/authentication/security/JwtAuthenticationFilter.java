@@ -29,6 +29,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 	private static final int TOKEN_EXPIRATION = 600_000;
 	
+	// @Value("${jwt.token.password}") Mover para properties
 	public static final String TOKEN_PASSWORD = "51sa16a1da6da21sa74132sas";
 	
 	private final AuthenticationManager authenticationManager;
