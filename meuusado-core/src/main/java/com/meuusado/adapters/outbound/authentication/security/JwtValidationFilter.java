@@ -1,4 +1,4 @@
-package com.meuusado.security;
+package com.meuusado.adapters.outbound.authentication.security;
 
 import java.io.IOException;
 import java.util.ArrayList;

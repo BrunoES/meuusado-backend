@@ -37,7 +37,7 @@ public class MessagingServiceImpl<T> implements MessagingServicePort<T>, Closeab
 	
 	@Override
 	public void send(String queue, String messageId, T objectMessage) throws InterruptedException, ExecutionException {
-		ProducerRecord record = new ProducerRecord<String, T>(queue, messageId, objectMessage);
+		ProducerRecord<String, T> record = new ProducerRecord<String, T>(queue, messageId, objectMessage);
 		producer.send(record, new NewMessageCallBack()).get();
 	}
 	

@@ -1,4 +1,4 @@
-package com.meuusado.security;
+package com.meuusado.adapters.outbound.authentication.security;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meuusado.adapters.dtos.UsuarioDTO;
-import com.meuusado.jwt.UserDetailsData;
+import com.meuusado.adapters.outbound.authentication.jwt.UserDetailsData;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 

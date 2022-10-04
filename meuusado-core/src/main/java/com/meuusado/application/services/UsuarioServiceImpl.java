@@ -25,6 +25,11 @@ public class UsuarioServiceImpl implements UsuarioServicePort {
 	}
 
 	@Override
+	public Usuario findByEmail(String email) {
+		return usuarioRepository.findByEmail(email);
+	}
+	
+	@Override
 	public Usuario save(Usuario Usuario) {
 		return usuarioRepository.save(Usuario);
 	}

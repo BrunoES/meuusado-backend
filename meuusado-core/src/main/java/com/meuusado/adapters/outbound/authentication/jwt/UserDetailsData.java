@@ -1,4 +1,4 @@
-package com.meuusado.jwt;
+package com.meuusado.adapters.outbound.authentication.jwt;
 
 import java.util.ArrayList;
 import java.util.Collection;

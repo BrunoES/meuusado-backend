@@ -40,7 +40,7 @@ public class PostgresUsuarioRepository implements UsuarioRepositoryPort {
 		UsuarioEntity usuarioEntity = usuarioRepository.findById(id).orElse(null);
 		return usuarioEntity.toDomain();
 	}
-
+	
 	@Override
 	public Usuario save(Usuario usuario) {
 		UsuarioEntity usuarioEntity = new UsuarioEntity();
