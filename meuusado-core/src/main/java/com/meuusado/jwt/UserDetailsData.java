@@ -25,14 +25,12 @@ public class UserDetailsData implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		usuario.password();
-		return null;
+		return usuario.password();
 	}
 
 	@Override
 	public String getUsername() {
-		usuario.email();
-		return null;
+		return usuario.email();
 	}
 
 	@Override

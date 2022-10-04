@@ -7,21 +7,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.meuusado.jwt.UserDetailsServiceImpl;
-
 @EnableWebSecurity
 public class JwtConfiguration extends WebSecurityConfigurerAdapter {
 
-	private final UserDetailsServiceImpl detailsServiceImpl;
+	private final UserDetailsService detailsServiceImpl;
 	private final PasswordEncoder passwordEncoder;
 	
-	public JwtConfiguration(UserDetailsServiceImpl detailsServiceImpl, PasswordEncoder passwordEncoder) {
-		super();
+	public JwtConfiguration(UserDetailsService detailsServiceImpl, PasswordEncoder passwordEncoder) {
 		this.detailsServiceImpl = detailsServiceImpl;
 		this.passwordEncoder = passwordEncoder;
 	}
