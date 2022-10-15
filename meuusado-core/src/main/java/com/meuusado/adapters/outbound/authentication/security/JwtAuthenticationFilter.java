@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.meuusado.adapters.dtos.UsuarioDTO;
+import com.meuusado.adapters.dtos.LoginDTO;
 import com.meuusado.adapters.outbound.authentication.jwt.UserDetailsData;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -43,15 +43,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
 		
-		UsuarioDTO usuarioDTO = null;
+		LoginDTO loginDTO = null;
 		
 		try {
-			usuarioDTO = new ObjectMapper().readValue(request.getInputStream(), UsuarioDTO.class);
+			loginDTO = new ObjectMapper().readValue(request.getInputStream(), LoginDTO.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(usuarioDTO.getEmail(), usuarioDTO.getPassword(), new ArrayList<>()));
+		return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword(), new ArrayList<>()));
 	}
 	
 	@Override
