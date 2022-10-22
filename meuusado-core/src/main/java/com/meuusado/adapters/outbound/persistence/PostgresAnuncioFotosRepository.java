@@ -49,8 +49,11 @@ public class PostgresAnuncioFotosRepository implements AnuncioFotosRepositoryPor
 	}
 	
 	@Override
-	public AnuncioFotos save(AnuncioFotos veiculo) {
-		AnuncioFotosEntity anuncioFotosEntity = modelMapper.map(veiculo, AnuncioFotosEntity.class);
+	public AnuncioFotos save(AnuncioFotos anuncioFoto) {
+		AnuncioFotosEntity anuncioFotosEntity = modelMapper.map(anuncioFoto, AnuncioFotosEntity.class);
+		anuncioFotosEntity.setBase64Img(anuncioFoto.base64Img());
+		anuncioFotosEntity.setIdAnuncio(anuncioFoto.anuncio().idAnuncio());
+		anuncioFotosEntity = anuncioFotosRepository.save(anuncioFotosEntity);
 		return anuncioFotosEntity.toDomain();
 	}
 

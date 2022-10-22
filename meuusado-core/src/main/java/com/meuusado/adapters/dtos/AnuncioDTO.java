@@ -3,6 +3,7 @@ package com.meuusado.adapters.dtos;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -104,6 +105,7 @@ public class AnuncioDTO implements Serializable {
 		this.setBase64Imagem(anuncio.base64ImgPrincMin());
 		this.setListAnuncioFotos(anuncio.listAnuncioFotos());
 		this.setSituacaoAnuncio(anuncio.situacaoAnuncio());
+		this.listAnuncioFotosBase64 = anuncio.listAnuncioFotos().stream().map(x -> x.base64Img()).collect(Collectors.toList());
 	}
 
 	public Long getIdAnuncio() {

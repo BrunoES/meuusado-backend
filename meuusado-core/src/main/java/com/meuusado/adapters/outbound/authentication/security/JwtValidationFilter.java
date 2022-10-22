@@ -31,6 +31,7 @@ public class JwtValidationFilter extends BasicAuthenticationFilter {
 		
 		String attribute = request.getHeader(HEADER_ATTRIBUTE);
 		
+		
 		if (attribute == null) {
 			chain.doFilter(request, response);
 			return;
@@ -43,6 +44,8 @@ public class JwtValidationFilter extends BasicAuthenticationFilter {
 		UsernamePasswordAuthenticationToken authenticationToken = getAuthenticationToken(token);
 		
 		SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+		//response.setHeader("Content-Type", "application/json");
+		//response.setHeader("Content-Type", "text/html");
 		chain.doFilter(request, response);
 	}
 	

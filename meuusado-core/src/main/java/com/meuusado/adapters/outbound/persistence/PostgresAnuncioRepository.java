@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import com.meuusado.adapters.outbound.persistence.entity.AnuncioEntity;
+import com.meuusado.adapters.outbound.persistence.entity.AnuncioFotosEntity;
 import com.meuusado.application.domain.Anuncio;
 import com.meuusado.application.domain.AnuncioFotos;
 import com.meuusado.application.domain.Modelo;
@@ -78,14 +79,20 @@ public class PostgresAnuncioRepository implements AnuncioRepositoryPort {
 		anuncioEntity.setSituacaoAnuncio(anuncio.situacaoAnuncio().situacaoAnuncio);
 		
 		anuncioEntity = anuncioRepository.save(anuncioEntity);
-		
-		anuncio.listAnuncioFotos().stream().forEach(anuncioFoto -> {
-			anuncioFotosRepository.save(anuncioFoto);
-		});
+		saveAnuncioFotos(anuncio.listAnuncioFotos(), anuncioEntity.getIdAnuncio());
 		
 		return fillAnuncio(anuncioEntity);
 	}
 
+	private void saveAnuncioFotos(List<AnuncioFotos> listAnuncioFotos, Long idAnuncio) {
+		listAnuncioFotos.stream().forEach(anuncioFoto -> {
+			AnuncioFotos anuncioFotoAux = new AnuncioFotos(null,
+					new Anuncio(idAnuncio, null, null, null, null, 0, 0, null, null, null, listAnuncioFotos, null),
+					anuncioFoto.base64Img());
+			anuncioFotosRepository.save(anuncioFotoAux);
+		});
+	}
+	
 	@Override
 	public void delete(Anuncio anuncio) {
 		AnuncioEntity anuncioEntity = modelMapper.map(anuncio, AnuncioEntity.class);
