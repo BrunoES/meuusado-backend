@@ -57,6 +57,14 @@ public class AnuncioController {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
+	@RequestMapping(value="/location/{coordinates}", method=RequestMethod.GET)
+	public ResponseEntity<List<AnuncioResumidoDTO>> findByLocation(@PathVariable String coordinates) {
+		// Implement Coordinates
+		List<Anuncio> list = anuncioServicePort.findAll();
+		List<AnuncioResumidoDTO> listDto = list.stream().filter(x -> x.base64ImgPrincMin() != null).map(obj -> new AnuncioResumidoDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
+	}
+	
 	@RequestMapping(value="/filter/{query}", method=RequestMethod.GET)
 	public ResponseEntity<List<AnuncioResumidoDTO>> find(@PathVariable String query) {
 		List<Anuncio> list = anuncioServicePort.findByQuery(query);
@@ -69,7 +77,7 @@ public class AnuncioController {
 		Modelo modelo = modeloServicePort.findById(anuncioDto.getIdModelo());
 		Usuario usuario = usuarioServicePort.findById(anuncioDto.getIdUsuario());
 		List<AnuncioFotos> listAnuncioFotos = anuncioDto.getListAnuncioFotosBase64().stream().map(x-> new AnuncioFotos(null, null, x)).collect(Collectors.toList());
-		Anuncio anuncio = new Anuncio(anuncioDto.getIdAnuncio(), usuario, modelo, anuncioDto.getTitulo(), anuncioDto.getDescricao(), anuncioDto.getAno(), anuncioDto.getValor(), anuncioDto.getDataCriacao(), anuncioDto.getBase64Imagem(), "", listAnuncioFotos, SituacaoAnuncio.AGUARDANDO_APROVACAO); 
+		Anuncio anuncio = new Anuncio(anuncioDto.getIdAnuncio(), usuario, modelo, anuncioDto.getTitulo(), anuncioDto.getDescricao(), anuncioDto.getAno(), anuncioDto.getValor(), anuncioDto.getDataCriacao(), anuncioDto.getBase64Imagem(), "", listAnuncioFotos, SituacaoAnuncio.AGUARDANDO_APROVACAO, anuncioDto.getCoordinates()); 
 		anuncio = anuncioServicePort.save(anuncio);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(anuncio.idAnuncio()).toUri();
@@ -80,7 +88,7 @@ public class AnuncioController {
 	public ResponseEntity<Anuncio> update(@RequestBody AnuncioDTO anuncioDto, @PathVariable Long id) {
 		Modelo modelo = modeloServicePort.findById(anuncioDto.getIdModelo());
 		Usuario usuario = usuarioServicePort.findById(anuncioDto.getIdUsuario());
-		Anuncio anuncio = new Anuncio(id, usuario, modelo, anuncioDto.getTitulo(), anuncioDto.getDescricao(), anuncioDto.getAno(), anuncioDto.getValor(), anuncioDto.getDataCriacao(), anuncioDto.getBase64Imagem(), "", anuncioDto.getListAnuncioFotos(), anuncioDto.getSituacaoAnuncio());
+		Anuncio anuncio = new Anuncio(id, usuario, modelo, anuncioDto.getTitulo(), anuncioDto.getDescricao(), anuncioDto.getAno(), anuncioDto.getValor(), anuncioDto.getDataCriacao(), anuncioDto.getBase64Imagem(), "", anuncioDto.getListAnuncioFotos(), anuncioDto.getSituacaoAnuncio(), anuncioDto.getCoordinates());
 		anuncio = anuncioServicePort.save(anuncio);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(anuncio.idAnuncio()).toUri();

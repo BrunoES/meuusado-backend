@@ -71,6 +71,9 @@ public class AnuncioEntity {
 	@Column(name = "SITUACAO_ANUNCIO")
 	private int situacaoAnuncio;
 	
+	@Column(name = "COORDINATES")
+	private String coordinates;
+	
 	public AnuncioEntity() {
 		super();
 	}
@@ -212,6 +215,14 @@ public class AnuncioEntity {
 		this.situacaoAnuncio = situacaoAnuncio;
 	}
 
+	public String getCoordinates() {
+		return coordinates;
+	}
+
+	public void setCoordinates(String coordinates) {
+		this.coordinates = coordinates;
+	}
+
 	public Anuncio toDomain() {
 		List<AnuncioFotos> listAnuncioFotosDomain = null;
 		if(listAnuncioFotos != null) {
@@ -228,7 +239,8 @@ public class AnuncioEntity {
 				this.base64ImgPrincMin,
 				this.pathImagem,
 				listAnuncioFotosDomain,
-				SituacaoAnuncio.valueOf(situacaoAnuncio));
+				SituacaoAnuncio.valueOf(situacaoAnuncio),
+				this.coordinates);
 	}
 	
 }

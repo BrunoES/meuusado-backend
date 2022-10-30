@@ -94,7 +94,7 @@ public class AnuncioServiceImpl implements AnuncioServicePort {
 	@Override
 	public Anuncio aprove(Long idAnuncio) {
 		Anuncio anuncio = anuncioRepository.findById(idAnuncio);
-		Anuncio anuncioAprovado = new Anuncio(anuncio.idAnuncio(), anuncio.usuario(), anuncio.modelo(), anuncio.titulo(), anuncio.descricao(), anuncio.ano(), anuncio.valor(), anuncio.dataCriacao(), anuncio.base64ImgPrincMin(), anuncio.pathImagem(), anuncio.listAnuncioFotos(), SituacaoAnuncio.APROVADO);
+		Anuncio anuncioAprovado = new Anuncio(anuncio.idAnuncio(), anuncio.usuario(), anuncio.modelo(), anuncio.titulo(), anuncio.descricao(), anuncio.ano(), anuncio.valor(), anuncio.dataCriacao(), anuncio.base64ImgPrincMin(), anuncio.pathImagem(), anuncio.listAnuncioFotos(), SituacaoAnuncio.APROVADO, anuncio.coordinates());
 		anuncioAprovado = anuncioRepository.save(anuncioAprovado);
 		submitMongoDBDatabaseQueue(anuncio);
 		return anuncioAprovado;

@@ -87,7 +87,7 @@ public class PostgresAnuncioRepository implements AnuncioRepositoryPort {
 	private void saveAnuncioFotos(List<AnuncioFotos> listAnuncioFotos, Long idAnuncio) {
 		listAnuncioFotos.stream().forEach(anuncioFoto -> {
 			AnuncioFotos anuncioFotoAux = new AnuncioFotos(null,
-					new Anuncio(idAnuncio, null, null, null, null, 0, 0, null, null, null, listAnuncioFotos, null),
+					new Anuncio(idAnuncio, null, null, null, null, 0, 0, null, null, null, listAnuncioFotos, null, ""),
 					anuncioFoto.base64Img());
 			anuncioFotosRepository.save(anuncioFotoAux);
 		});
@@ -103,7 +103,7 @@ public class PostgresAnuncioRepository implements AnuncioRepositoryPort {
 		List<AnuncioFotos> listFotosAnuncio = anuncioFotosRepository.findByAnuncio(anuncioEntity.getIdAnuncio());
 		Modelo modelo = (anuncioEntity.getIdModelo() != null ? modeloRepository.findById(anuncioEntity.getIdModelo()) : null);
 		Usuario usuario = (anuncioEntity.getIdUsuario() != null ? usuarioRepository.findById(anuncioEntity.getIdUsuario()) : null);
-		Anuncio anuncio = new Anuncio(anuncioEntity.getIdAnuncio(), usuario, modelo, anuncioEntity.getTitulo(), anuncioEntity.getDescricao(), anuncioEntity.getAno(), anuncioEntity.getValor(), anuncioEntity.getDataCriacao(), anuncioEntity.getBase64ImgPrincMin(), anuncioEntity.getPathImagem(), listFotosAnuncio, SituacaoAnuncio.valueOf(anuncioEntity.getSituacaoAnuncio())); 
+		Anuncio anuncio = new Anuncio(anuncioEntity.getIdAnuncio(), usuario, modelo, anuncioEntity.getTitulo(), anuncioEntity.getDescricao(), anuncioEntity.getAno(), anuncioEntity.getValor(), anuncioEntity.getDataCriacao(), anuncioEntity.getBase64ImgPrincMin(), anuncioEntity.getPathImagem(), listFotosAnuncio, SituacaoAnuncio.valueOf(anuncioEntity.getSituacaoAnuncio()), anuncioEntity.getCoordinates()); 
 		return anuncio;
 	}
 

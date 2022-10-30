@@ -44,6 +44,8 @@ public class AnuncioDTO implements Serializable {
 	@JsonIgnore
 	private List<AnuncioFotos> listAnuncioFotos;
 	
+	private String coordinates;
+	
 	public AnuncioDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -212,4 +214,12 @@ public class AnuncioDTO implements Serializable {
 		this.situacaoAnuncio = situacaoAnuncio;
 	}
 
+	public String getCoordinates() {
+		return coordinates;
+	}
+
+	public void setCoordinates(String coordinates) {
+		this.coordinates = coordinates;
+	}
+	
 }
