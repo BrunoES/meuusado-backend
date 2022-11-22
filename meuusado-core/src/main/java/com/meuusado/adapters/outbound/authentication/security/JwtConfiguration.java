@@ -30,15 +30,15 @@ public class JwtConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		String[] patterns = { "/login", "/api/v1/usuario" };
 		httpSecurity.csrf().disable().authorizeHttpRequests()
-			.antMatchers(HttpMethod.POST, "/login").permitAll()
+			.antMatchers(HttpMethod.POST, patterns).permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.addFilter(new JwtAuthenticationFilter(authenticationManager()))
 			.addFilter(new JwtValidationFilter(authenticationManager()))
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS.STATELESS);
 	}
-	
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {

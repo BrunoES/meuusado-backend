@@ -38,13 +38,14 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Usuario> save(@RequestBody UsuarioDTO usuarioDto) {
+	public ResponseEntity<UsuarioDTO> save(@RequestBody UsuarioDTO usuarioDto) {
 		Usuario usuario = new Usuario(usuarioDto.getIdUsuario(), usuarioDto.getNome(), usuarioDto.getEmail(), usuarioDto.getPassword());
 		usuario = usuarioServicePort.save(usuario);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(usuario.idUsuario()).toUri();
 		//return ResponseEntity.ok().body(usuario);
-		return ResponseEntity.created(uri).build();
+		usuarioDto = new UsuarioDTO(usuario);
+		return ResponseEntity.created(uri).body(usuarioDto);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
